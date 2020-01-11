@@ -1,26 +1,33 @@
 {
-    "name": "gatsby-documentation",
+    "name": "gatsby-theme-docs",
     "description": "A documentation powered by Gatsby and Markdown",
     "version": "0.0.0",
     "private": true,
     "scripts": {
         "commitmsg": "commitlint -e $GIT_PARAMS",
         "build": "gatsby build",
+        "clean": "gatsby clean",
         "develop": "gatsby develop",
         "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-        "start": "npm run develop",
+        "publish": "lerna publish",
+        "publish:ci": "lerna publish -y --canary --preid ci --dist-tag=ci --force-publish=*",
         "serve": "gatsby serve",
-        "clean": "gatsby clean",
-        "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+        "start": "yarn workspace gatsby-starter-docs start",
+        "test": "yarn build"
     },
     "devDependencies": {
         "@commitlint/cli": "^8.2.0",
         "@commitlint/config-conventional": "^8.2.0",
         "@commitlint/prompt-cli": "^8.2.0",
         "husky": "^3.0.5",
+        "lerna": "^3.20.2",
         "lint-staged": "^9.2.5",
         "prettier": "^1.19.1"
     },
+    "workspaces": [
+        "packages/*",
+        "starters/*"
+    ],
     "homepage": "https://github.com/design4pro/gatsby-documentation#readme",
     "keywords": [
         "gatsby",

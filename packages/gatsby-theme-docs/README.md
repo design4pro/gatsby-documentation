@@ -1,0 +1,1 @@
+# Gatsby Documentation Core Theme
