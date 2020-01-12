@@ -1,10 +1,7 @@
 const fs = require(`fs`);
 const path = require(`path`);
 const mkdirp = require(`mkdirp`);
-const crypto = require(`crypto`);
 const Debug = require(`debug`);
-const { createFilePath } = require(`gatsby-source-filesystem`);
-const { urlResolve } = require(`gatsby-core-utils`);
 
 const debug = Debug(`gatsby-theme-docs`);
 const withDefaults = require(`./default-options`);
@@ -27,118 +24,6 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
         }
     });
 };
-
-const mdxResolverPassthrough = fieldName => async (
-    source,
-    args,
-    context,
-    info
-) => {
-    const type = info.schema.getType(`Mdx`);
-    const mdxNode = context.nodeModel.getNodeById({
-        id: source.parent
-    });
-    const resolver = type.getFields()[fieldName].resolve;
-    const result = await resolver(mdxNode, args, context, {
-        fieldName
-    });
-    return result;
-};
-
-// exports.createSchemaCustomization = ({ actions, schema }) => {
-//     const { createTypes } = actions;
-
-//     createTypes(`
-//         interface DocsPage @nodeInterface {
-//             id: ID!
-//             title: String!
-//             body: String!
-//             slug: String!
-//             date: Date! @dateformat
-//             tags: [String]!
-//             keywords: [String]!
-//             excerpt: String!
-//         }
-//     `);
-
-//     createTypes(`
-//         type Site implements Node @infer {
-//             siteMetadata: SiteSiteMetadata!
-//         }
-
-//         type SiteSiteMetadata {
-//             title: String!
-//             description: String!
-//             docsLocation: String
-//         }
-//     `);
-
-//     createTypes(`
-//         type File implements Node @infer {
-//             childMarkdownRemark: MarkdownRemark
-//         }
-//         type MarkdownRemark implements Node @infer {
-//             frontmatter: MarkdownRemarkFrontmatter
-//             fields: MarkdownRemarkFields
-//         }
-//         type MarkdownRemarkFields {
-//             image: String
-//             version: String
-//             slug: String
-//             graphManagerUrl: String
-//         }
-//         type MarkdownRemarkFrontmatter {
-//             title: String
-//             subtitle: String
-//             description: String
-//         }
-//     `);
-
-//     createTypes(
-//         schema.buildObjectType({
-//             name: `MdxDocsPage`,
-//             fields: {
-//                 id: { type: `ID!` },
-//                 title: {
-//                     type: `String!`
-//                 },
-//                 slug: {
-//                     type: `String!`
-//                 },
-//                 date: { type: `Date!`, extensions: { dateformat: {} } },
-//                 tags: { type: `[String]!` },
-//                 keywords: { type: `[String]!` },
-//                 excerpt: {
-//                     type: `String!`,
-//                     args: {
-//                         pruneLength: {
-//                             type: `Int`,
-//                             defaultValue: 140
-//                         }
-//                     },
-//                     resolve: mdxResolverPassthrough(`excerpt`)
-//                 },
-//                 body: {
-//                     type: `String!`,
-//                     resolve: mdxResolverPassthrough(`body`)
-//                 },
-//                 relativePath: {
-//                     type: `String`
-//                 },
-//                 headings: {
-//                     type: `[MarkdownHeading!]`,
-//                     args: {
-//                         depth: {
-//                             type: `MarkdownHeadingLevels`
-//                         }
-//                     },
-//                     resolve: mdxResolverPassthrough(`headings`)
-//                 }
-//             },
-//             interfaces: [`Node`, `DocsPage`]
-//         })
-//     );
-// };
 
 // Create fields for post slugs and source
 // This will change with schema customization with work
