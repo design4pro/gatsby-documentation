@@ -6,7 +6,7 @@ const Debug = require(`debug`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const { urlResolve } = require(`gatsby-core-utils`);
 
-const debug = Debug(`gatsby-theme-documentation-core`);
+const debug = Debug(`gatsby-theme-docs`);
 const withDefaults = require(`./default-options`);
 
 // Ensure that content directories exist at site-level
@@ -45,140 +45,150 @@ const mdxResolverPassthrough = fieldName => async (
     return result;
 };
 
-exports.createSchemaCustomization = ({ actions, schema }) => {
-    const { createTypes } = actions;
+// exports.createSchemaCustomization = ({ actions, schema }) => {
+//     const { createTypes } = actions;
 
-    createTypes(`interface DocsPage @nodeInterface {
-        id: ID!
-        title: String!
-        body: String!
-        slug: String!
-        date: Date! @dateformat
-        tags: [String]!
-        keywords: [String]!
-        excerpt: String!
-    }`);
+//     createTypes(`
+//         interface DocsPage @nodeInterface {
+//             id: ID!
+//             title: String!
+//             body: String!
+//             slug: String!
+//             date: Date! @dateformat
+//             tags: [String]!
+//             keywords: [String]!
+//             excerpt: String!
+//         }
+//     `);
 
-    createTypes(
-        schema.buildObjectType({
-            name: `MdxDocsPage`,
-            fields: {
-                id: { type: `ID!` },
-                title: {
-                    type: `String!`
-                },
-                slug: {
-                    type: `String!`
-                },
-                date: { type: `Date!`, extensions: { dateformat: {} } },
-                tags: { type: `[String]!` },
-                keywords: { type: `[String]!` },
-                excerpt: {
-                    type: `String!`,
-                    args: {
-                        pruneLength: {
-                            type: `Int`,
-                            defaultValue: 140
-                        }
-                    },
-                    resolve: mdxResolverPassthrough(`excerpt`)
-                },
-                body: {
-                    type: `String!`,
-                    resolve: mdxResolverPassthrough(`body`)
-                }
-            },
-            interfaces: [`Node`, `DocsPage`]
-        })
-    );
-};
+//     createTypes(`
+//         type Site implements Node @infer {
+//             siteMetadata: SiteSiteMetadata!
+//         }
+
+//         type SiteSiteMetadata {
+//             title: String!
+//             description: String!
+//             docsLocation: String
+//         }
+//     `);
+
+//     createTypes(`
+//         type File implements Node @infer {
+//             childMarkdownRemark: MarkdownRemark
+//         }
+//         type MarkdownRemark implements Node @infer {
+//             frontmatter: MarkdownRemarkFrontmatter
+//             fields: MarkdownRemarkFields
+//         }
+//         type MarkdownRemarkFields {
+//             image: String
+//             version: String
+//             slug: String
+//             graphManagerUrl: String
+//         }
+//         type MarkdownRemarkFrontmatter {
+//             title: String
+//             subtitle: String
+//             description: String
+//         }
+//     `);
+
+//     createTypes(
+//         schema.buildObjectType({
+//             name: `MdxDocsPage`,
+//             fields: {
+//                 id: { type: `ID!` },
+//                 title: {
+//                     type: `String!`
+//                 },
+//                 slug: {
+//                     type: `String!`
+//                 },
+//                 date: { type: `Date!`, extensions: { dateformat: {} } },
+//                 tags: { type: `[String]!` },
+//                 keywords: { type: `[String]!` },
+//                 excerpt: {
+//                     type: `String!`,
+//                     args: {
+//                         pruneLength: {
+//                             type: `Int`,
+//                             defaultValue: 140
+//                         }
+//                     },
+//                     resolve: mdxResolverPassthrough(`excerpt`)
+//                 },
+//                 body: {
+//                     type: `String!`,
+//                     resolve: mdxResolverPassthrough(`body`)
+//                 },
+//                 relativePath: {
+//                     type: `String`
+//                 },
+//                 headings: {
+//                     type: `[MarkdownHeading!]`,
+//                     args: {
+//                         depth: {
+//                             type: `MarkdownHeadingLevels`
+//                         }
+//                     },
+//                     resolve: mdxResolverPassthrough(`headings`)
+//                 }
+//             },
+//             interfaces: [`Node`, `DocsPage`]
+//         })
+//     );
+// };
 
 // Create fields for post slugs and source
 // This will change with schema customization with work
-exports.onCreateNode = async (
-    { node, actions, getNode, createNodeId },
-    themeOptions
-) => {
-    const { createNode, createParentChildLink } = actions;
-    const { contentPath, basePath } = withDefaults(themeOptions);
+exports.onCreateNode = ({ node, actions, getNode }) => {
+    const { createNodeField } = actions;
 
-    // Make sure it's an MDX node
-    if (node.internal.type !== `Mdx`) {
-        return;
-    }
+    if (node.internal.type === `Mdx`) {
+        const parent = getNode(node.parent);
+        let value = parent.relativePath.replace(parent.ext, '');
 
-    // Create source field (according to contentPath)
-    const fileNode = getNode(node.parent);
-    const source = fileNode.sourceInstanceName;
-
-    if (
-        ['MarkdownRemark', 'Mdx'].includes(node.internal.type) &&
-        source === contentPath
-    ) {
-        let slug;
-        if (node.frontmatter.slug) {
-            if (path.isAbsolute(node.frontmatter.slug)) {
-                // absolute paths take precedence
-                slug = node.frontmatter.slug;
-            } else {
-                // otherwise a relative slug gets turned into a sub path
-                slug = urlResolve(basePath, node.frontmatter.slug);
-            }
-        } else {
-            // otherwise use the filepath function from gatsby-source-filesystem
-            const filePath = createFilePath({
-                node: fileNode,
-                getNode,
-                basePath: contentPath
-            });
-
-            slug = urlResolve(basePath, filePath);
+        if (value === 'index') {
+            value = '';
         }
-        // normalize use of trailing slash
-        slug = slug.replace(/\/*$/, `/`);
-        const fieldData = {
-            title: node.frontmatter.title,
-            tags: node.frontmatter.tags || [],
-            slug,
-            date: node.frontmatter.date,
-            keywords: node.frontmatter.keywords || [],
-            frontmatter: node.frontmatter
-        };
 
-        const mdxDocsPageId = createNodeId(`${node.id} >>> MdxDocsPage`);
-        await createNode({
-            ...fieldData,
-            // Required fields.
-            id: mdxDocsPageId,
-            parent: node.id,
-            children: [],
-            internal: {
-                type: `MdxDocsPage`,
-                contentDigest: crypto
-                    .createHash(`md5`)
-                    .update(JSON.stringify(fieldData))
-                    .digest(`hex`),
-                content: JSON.stringify(fieldData),
-                description: `Mdx implementation of the DocsPage interface`
-            }
+        createNodeField({
+            name: `slug`,
+            node,
+            value: `/${value}`
         });
-        createParentChildLink({ parent: node, child: getNode(mdxDocsPageId) });
+
+        createNodeField({
+            name: 'id',
+            node,
+            value: node.id
+        });
+
+        createNodeField({
+            name: 'title',
+            node,
+            value: node.frontmatter.title
+        });
     }
 };
 
 // These templates are simply data-fetching wrappers that import components
 const DocsTemplate = require.resolve(`./src/templates/docs-query`);
 
-exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
+exports.createPages = async ({ graphql, actions, reporter }) => {
     const { createPage } = actions;
 
     const result = await graphql(`
         {
-            allMdxDocsPage {
+            allMdx {
                 edges {
                     node {
                         id
-                        slug
+                        fields {
+                            slug
+                        }
+                        tableOfContents
                     }
                 }
             }
@@ -190,16 +200,21 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
     }
 
     // Create Docs and Doc pages.
-    const { allMdxDocsPage } = result.data;
-    const pages = allMdxDocsPage.edges;
+    const { allMdx } = result.data;
+    const pages = allMdx.edges;
 
-    // Create a page for each Post
-    pages.forEach(({ node }) => {
+    // Create a page for each Doc page
+    pages.forEach(({ node }, index) => {
+        const previous = index === pages.length - 1 ? null : pages[index + 1];
+        const next = index === 0 ? null : pages[index - 1];
+
         createPage({
-            path: node.slug ? node.slug : '/',
+            path: node.fields.slug ? node.fields.slug : '/',
             component: DocsTemplate,
             context: {
-                id: node.id
+                ...node,
+                previous,
+                next
             }
         });
     });

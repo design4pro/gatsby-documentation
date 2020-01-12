@@ -1,18 +1,9 @@
-module.exports = ({ root, siteName, subtitle, description, twitterHandle }) => {
+module.exports = options => {
     return {
-        siteMetadata: {
-            title: 'Gatsby Documentation',
-            siteName,
-            subtitle,
-            description,
-            twitterHandle
-        },
         plugins: [
             {
-                resolve: `gatsby-theme-documentation-core`,
-                options: {
-                    root
-                }
+                resolve: `gatsby-theme-docs`,
+                options
             }
         ]
     };

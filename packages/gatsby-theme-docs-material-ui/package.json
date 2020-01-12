@@ -1,7 +1,7 @@
 {
-    "name": "gatsby-theme-documentation-material-ui",
+    "name": "gatsby-theme-docs-material-ui",
     "description": "A starter for a documentation powered by Gatsby and Markdown",
-    "version": "0.0.1",
+    "version": "0.0.0",
     "author": "Rafał Wolak <r.wolak@design4.pro>",
     "main": "index.js",
     "keywords": [
@@ -14,14 +14,14 @@
     ],
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/design4pro/gatsby-documentation/issues"
+        "url": "https://github.com/design4pro/gatsby-theme-docs/issues"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/design4pro/gatsby-documentation.git",
-        "directory": "packages/gatsby-theme-documentation-material-ui"
+        "url": "https://github.com/design4pro/gatsby-theme-docs.git",
+        "directory": "packages/gatsby-theme-docs-material-ui"
     },
-    "homepage": "https://github.com/design4pro/gatsby-documentation/tree/master/packages/gatsby-theme-documentation-material-ui#readme",
+    "homepage": "https://github.com/design4pro/gatsby-theme-docs/tree/master/packages/gatsby-theme-docs-material-ui#readme",
     "dependencies": {
         "@material-ui/core": "^4.8.0",
         "@material-ui/icons": "^4.5.1",
@@ -41,7 +41,7 @@
         "gatsby-remark-copy-linked-files": "^2.1.31",
         "gatsby-remark-images": "^3.1.35",
         "gatsby-source-filesystem": "^2.1.40",
-        "gatsby-theme-documentation-core": "^0.0.1",
+        "gatsby-theme-docs": "^0.0.0",
         "gatsby-transformer-sharp": "^2.3.7",
         "prop-types": "^15.7.2",
         "react-helmet": "^5.2.1"
@@ -61,8 +61,5 @@
         "publish": {
             "conventionalCommits": true
         }
-    },
-    "publishConfig": {
-        "registry": "http://localhost:4873"
     }
 }

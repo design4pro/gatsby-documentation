@@ -1,17 +1,17 @@
 {
-    "name": "gatsby-theme-documentation-core",
-    "version": "0.0.1",
+    "name": "gatsby-theme-docs",
+    "version": "0.0.0",
     "author": "Rafał Wolak <r.wolak@design4.pro>",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/design4pro/gatsby-documentation/issues"
+        "url": "https://github.com/design4pro/gatsby-theme-docs/issues"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/design4pro/gatsby-documentation.git",
-        "directory": "packages/gatsby-theme-documentation-core"
+        "url": "https://github.com/design4pro/gatsby-theme-docs.git",
+        "directory": "packages/gatsby-theme-docs"
     },
-    "homepage": "https://github.com/design4pro/gatsby-documentation/tree/master/packages/gatsby-theme-documentation-core#readme",
+    "homepage": "https://github.com/design4pro/gatsby-theme-docs/tree/master/packages/gatsby-theme-docs#readme",
     "main": "index.js",
     "peerDependencies": {
         "@mdx-js/react": "^1.5.3",
@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@mdx-js/mdx": "^1.5.1",
+        "gatsby-plugin-layout": "^1.1.21",
         "gatsby-plugin-mdx": "^1.0.64",
         "gatsby-plugin-sharp": "^2.3.10",
         "gatsby-remark-copy-linked-files": "^2.1.33",
@@ -43,8 +44,5 @@
         "publish": {
             "conventionalCommits": true
         }
-    },
-    "publishConfig": {
-        "registry": "http://localhost:4873"
     }
 }

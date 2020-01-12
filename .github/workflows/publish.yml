@@ -13,12 +13,13 @@ jobs:
               with:
                   node-version: '10.x'
             - name: publish:starters
-              uses: design4pro/actions-push-subdirectories@master
+              uses: design4pro/actions-github-push-subdirectories@master
               env:
                   API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_EMAIL: ${{ secrets.GITHUB_EMAIL }}
               with:
-                  args: examples johno
+                  args: starters design4pro
             - name: publish:themes
               uses: johno/actions-yarn@master
               env:

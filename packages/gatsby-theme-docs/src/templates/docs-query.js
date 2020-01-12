@@ -9,13 +9,17 @@ export const query = graphql`
             siteMetadata {
                 title
                 docsLocation
+                siteUrl
             }
         }
-        mdxDocsPage(id: { eq: $id }) {
-            id
-            title
-            slug
+        mdx(fields: { id: { eq: $id } }) {
+            fields {
+                id
+                slug
+                title
+            }
             body
+            tableOfContents
             parent {
                 ... on File {
                     relativePath
@@ -26,11 +30,13 @@ export const query = graphql`
                 metaDescription
             }
         }
-        allDocsPage {
+        allMdx {
             edges {
                 node {
-                    slug
-                    title
+                    fields {
+                        slug
+                        title
+                    }
                 }
             }
         }

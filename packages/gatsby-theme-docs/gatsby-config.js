@@ -18,9 +18,11 @@ module.exports = themeOptions => {
 
     return {
         siteMetadata: {
-            title: `Documentation Title Placeholder`,
-            author: `Name Placeholder`,
-            description: `Description placeholder`,
+            title: `Gatsby Documentation`,
+            description: `Minimal Gatsby Theme for documentation websites`,
+            docsLocation: `https://github.com/design4pro/gatsby-theme-docs/tree/master/content`,
+            siteUrl: `https://docs.design4.pro`,
+            basePath: options.basePath || `/`,
             social: [
                 {
                     name: `Twitter`,
@@ -30,7 +32,14 @@ module.exports = themeOptions => {
                     name: `GitHub`,
                     url: `https://github.com/design4pro`
                 }
-            ]
+            ],
+            header: {
+                title: `Gatsby Documentation`,
+                links: [{ text: 'Home', link: '/' }]
+            },
+            sidebar: {
+                forcedNavOrder: []
+            }
         },
         plugins: [
             {
@@ -53,12 +62,18 @@ module.exports = themeOptions => {
                     plugins: gatsbyRemarkPlugins
                 }
             },
+
+            {
+                resolve: `gatsby-plugin-layout`,
+                options: {
+                    component: require.resolve(`./src/templates/docs-query.js`)
+                }
+            },
             {
                 resolve: `gatsby-plugin-mdx`,
                 options: {
                     extensions: [`.mdx`, `.md`],
-                    gatsbyRemarkPlugins: gatsbyRemarkPlugins,
-                    remarkPlugins: [require(`remark-slug`)]
+                    gatsbyRemarkPlugins: gatsbyRemarkPlugins
                 }
             },
             `gatsby-plugin-react-helmet`,
