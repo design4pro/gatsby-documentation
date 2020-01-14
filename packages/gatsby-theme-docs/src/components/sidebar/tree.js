@@ -1,4 +1,4 @@
-import { config } from 'gatsby-theme-docs';
+import { config } from '@design4pro/gatsby-theme-docs-core';
 import React, { useState } from 'react';
 import SidebarTreeNode from './tree-node';
 

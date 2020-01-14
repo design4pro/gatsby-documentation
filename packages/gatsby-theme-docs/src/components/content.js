@@ -1,5 +1,5 @@
 import { Link } from 'gatsby';
-import { config } from 'gatsby-theme-docs';
+import { config } from '@design4pro/gatsby-theme-docs-core';
 import React, { Fragment } from 'react';
 import NextPrevious from './next-previous';
 

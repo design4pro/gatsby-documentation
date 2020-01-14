@@ -5,7 +5,7 @@ module.exports = {
     },
     plugins: [
         {
-            resolve: `gatsby-theme-docs-material-ui`,
+            resolve: `@design4pro/gatsby-theme-docs`,
             options: {}
         }
     ]

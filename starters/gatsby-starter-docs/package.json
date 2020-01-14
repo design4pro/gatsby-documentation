@@ -1,5 +1,5 @@
 {
-    "name": "gatsby-starter-docs",
+    "name": "@design4pro/gatsby-starter-docs",
     "description": "A starter for a documentation powered by Gatsby and Markdown",
     "version": "0.0.0",
     "scripts": {
@@ -12,8 +12,8 @@
         "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
     },
     "dependencies": {
+        "@design4pro/gatsby-theme-docs": "^0.0.0",
         "gatsby": "^2.18.18",
-        "gatsby-theme-docs-material-ui": "^0.0.0",
         "prop-types": "^15.7.2",
         "react": "^16.12.0",
         "react-dom": "^16.12.0"

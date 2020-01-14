@@ -1,21 +1,19 @@
 import { createMuiTheme } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
-import { MDXRenderer } from "gatsby-plugin-mdx";
-import { config } from 'gatsby-theme-docs';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
+import { config } from '@design4pro/gatsby-theme-docs-core';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useTheme } from '../../hooks/use-theme';
-import { getBrowserTheme } from '../../utils/browser-theme';
+import { useTheme } from 'hooks/use-theme';
+import { getBrowserTheme } from 'utils/browser-theme';
 import theme from '../theme';
-import Layout from './layout';
-import Seo from './seo';
+import Layout from 'components/layout';
+import Seo from 'components/seo';
 
 export const DocsPage = props => {
     const {
-        data: {
-            mdx
-        }
+        data: { mdx }
     } = props;
 
     // SEO data
@@ -23,9 +21,7 @@ export const DocsPage = props => {
     const metaDescription = mdx.frontmatter.metaDescription;
     let canonicalUrl = config.siteMetadata.siteUrl;
     canonicalUrl =
-    config.basePath !== '/'
-            ? canonicalUrl + config.basePath
-            : canonicalUrl;
+        config.basePath !== '/' ? canonicalUrl + config.basePath : canonicalUrl;
     canonicalUrl = canonicalUrl + mdx.slug;
 
     // We keep the theme in app state

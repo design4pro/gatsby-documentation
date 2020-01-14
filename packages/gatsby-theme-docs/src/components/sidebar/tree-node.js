@@ -1,6 +1,6 @@
-import { config } from 'gatsby-theme-docs';
+import { config } from '@design4pro/gatsby-theme-docs-core';
 import React from 'react';
-import Link from '../link';
+import Link from 'components/link';
 
 export const SidebarTreeNode = props => {
     const {

@@ -8,9 +8,9 @@ import { createStyles, makeStyles } from '@material-ui/styles';
 import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
-import { useTheme } from '../../hooks/use-theme';
+import { useTheme } from 'hooks/use-theme';
 
-const useStyles = makeStyles(theme => 
+const useStyles = makeStyles(theme =>
     createStyles({
         body: {
             backgroundColor: '#F5F7F9',

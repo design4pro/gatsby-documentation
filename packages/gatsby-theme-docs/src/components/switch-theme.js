@@ -3,9 +3,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Brightness4 from '@material-ui/icons/Brightness4';
 import Brightness7 from '@material-ui/icons/Brightness7';
 import BrightnessAuto from '@material-ui/icons/BrightnessAuto';
-import React, { useCallback, useEffect, Fragment } from 'react';
-import { onBrowserThemeChanged } from '../../utils/browser-theme';
-import { useTheme } from '../../hooks/use-theme';
+import { useTheme } from 'hooks/use-theme';
+import React, { Fragment, useCallback, useEffect } from 'react';
+import { onBrowserThemeChanged } from 'utils/browser-theme';
 
 export const SwitchTheme = () => {
     const [theme, setTheme] = useTheme();

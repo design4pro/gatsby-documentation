@@ -24,7 +24,7 @@ module.exports = {
     },
     plugins: [
         {
-            resolve: 'gatsby-theme-documentation-material-ui',
+            resolve: `@design4pro/gatsby-theme-docs`,
             options: {
                 ...themeOptions,
                 siteName: 'Gatsby Documentation Starter',

@@ -1,5 +1,4 @@
-import Actions from '../state/actions';
-import { useStore } from '../state/store/hooks';
+import { Actions, useStore } from 'state';
 
 export const useTheme = () => {
     const { state, dispatch } = useStore();

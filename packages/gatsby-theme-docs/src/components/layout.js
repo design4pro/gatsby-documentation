@@ -4,7 +4,7 @@ import Drawer from '@material-ui/core/Drawer';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useTheme } from '../../hooks/use-theme';
+import { useTheme } from 'hooks/use-theme';
 import CollapseOnScroll from './collapse-on-scroll';
 import Content from './content';
 import Header from './header';
