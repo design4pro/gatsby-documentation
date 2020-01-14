@@ -6,9 +6,9 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import { graphql, useStaticQuery } from 'gatsby';
+import { useTheme } from 'hooks/use-theme';
 import React from 'react';
 import Helmet from 'react-helmet';
-import { useTheme } from 'hooks/use-theme';
 
 const useStyles = makeStyles(theme =>
     createStyles({
@@ -38,7 +38,7 @@ const NotFound = () => {
         site: { siteMetadata }
     } = useStaticQuery(
         graphql`
-            query notFoundQuery {
+            query NotFoundQuery {
                 site {
                     siteMetadata {
                         title

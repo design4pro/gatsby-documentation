@@ -1,16 +1,19 @@
 const path = require('path');
 
 /**
- * So you can do
+ * Webpack feature for aliasing in your import statements, just import this plugin
+ * and all of your folders inside your src will be available with aliases.
  *
  * ```js
- * import 'components/navbar'
+ * import "styles/layout.css"
+ * import Header from "components/Header"
  * ```
+ * 
  * Instead of
  *
  * ```js
- * import '../../components/navbar.js'
- * ```
+ * import "../../styles/layout.css"
+ * import Header from "../components/Header/index.js"
  */
 exports.onCreateWebpackConfig = ({ actions }) => {
     actions.setWebpackConfig({

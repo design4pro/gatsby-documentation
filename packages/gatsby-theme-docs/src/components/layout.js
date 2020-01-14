@@ -2,9 +2,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Container from '@material-ui/core/Container';
 import Drawer from '@material-ui/core/Drawer';
 import { createStyles, makeStyles } from '@material-ui/styles';
+import { useTheme } from 'hooks/use-theme';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useTheme } from 'hooks/use-theme';
 import CollapseOnScroll from './collapse-on-scroll';
 import Content from './content';
 import Header from './header';
@@ -77,7 +77,7 @@ export const Layout = props => {
 };
 
 Layout.propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.node
 };
 
 export default Layout;

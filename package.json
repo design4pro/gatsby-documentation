@@ -16,7 +16,7 @@
     },
     "workspaces": [
         "packages/*",
-        "starters/*"
+        "example/*"
     ],
     "dependencies": {
         "gatsby": "^2.18.7",

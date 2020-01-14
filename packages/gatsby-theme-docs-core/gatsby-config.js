@@ -17,6 +17,7 @@ module.exports = themeOptions => {
     ];
 
     return {
+        pathPrefix: `/`,
         siteMetadata: {
             title: `Gatsby Documentation`,
             description: `Minimal Gatsby Theme for documentation websites`,

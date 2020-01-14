@@ -1,9 +1,7 @@
-import { Link } from 'gatsby';
 import { config } from '@design4pro/gatsby-theme-docs-core';
+import { Link } from 'gatsby';
 import React, { Fragment } from 'react';
 import NextPrevious from './next-previous';
-
-const forcedNavOrder = config.siteMetadata.sidebar.forcedNavOrder;
 
 const Content = props => {
     const {
@@ -16,6 +14,8 @@ const Content = props => {
             }
         }
     } = props;
+
+    const forcedNavOrder = config.siteMetadata.sidebar.forcedNavOrder;
 
     const navItems = allMdx.edges
         .map(({ node }) => node.fields.slug)

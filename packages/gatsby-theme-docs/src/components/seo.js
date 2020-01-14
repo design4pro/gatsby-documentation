@@ -1,7 +1,7 @@
-import React from 'react';
+import { graphql, useStaticQuery } from 'gatsby';
 import PropTypes from 'prop-types';
+import React from 'react';
 import Helmet from 'react-helmet';
-import { useStaticQuery, graphql } from 'gatsby';
 
 /**
  * SEO component that queries for data with
@@ -83,7 +83,7 @@ Seo.propTypes = {
     description: PropTypes.string,
     lang: PropTypes.string,
     meta: PropTypes.arrayOf(PropTypes.object),
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     canonicalUrl: PropTypes.string
 };
 
