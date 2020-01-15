@@ -1,3 +1,16 @@
 import React from 'react';
 
-export default props => <pre>{JSON.stringify(props.data, null, 2)}</pre>;
+export const Docs = ({ children }) => {
+    return (
+        <Fragment>
+            <Viewport />
+            {children}
+        </Fragment>
+    );
+};
+
+Docs.propTypes = {
+    children: node
+};
+
+export default Docs;

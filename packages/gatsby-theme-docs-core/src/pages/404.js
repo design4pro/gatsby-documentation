@@ -1,5 +1,3 @@
-import React from 'react';
-
-export const NotFound = () => <div>Not found</div>;
+import NotFound from '../components/404';
 
 export default NotFound;

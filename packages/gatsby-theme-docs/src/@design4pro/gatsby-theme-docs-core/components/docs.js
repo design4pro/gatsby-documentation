@@ -11,7 +11,7 @@ import React from 'react';
 import { getBrowserTheme } from 'utils/browser-theme';
 import theme from '../theme';
 
-export const DocsPage = props => {
+export const Docs = props => {
     const {
         data: { mdx }
     } = props;
@@ -55,9 +55,9 @@ export const DocsPage = props => {
     );
 };
 
-DocsPage.propTypes = {
+Docs.propTypes = {
     location: PropTypes.object,
     data: PropTypes.object
 };
 
-export default DocsPage;
+export default Docs;

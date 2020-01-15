@@ -1,10 +1,10 @@
 import { graphql } from 'gatsby';
-import DocsPage from '../components/docs';
+import Docs from '../components/docs';
 
-export default DocsPage;
+export default Docs;
 
-export const query = graphql`
-    query DocsPageQuery($id: String!) {
+export const docsQuery = graphql`
+    query DocsQuery($id: String!) {
         site {
             siteMetadata {
                 title

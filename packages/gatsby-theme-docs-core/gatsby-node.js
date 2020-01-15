@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
 const Debug = require('debug');
+const { createFilePath } = require(`gatsby-source-filesystem`);
 
 const debug = Debug('gatsby-theme-docs');
 const withDefaults = require('./default-options');
@@ -31,17 +32,12 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     const { createNodeField } = actions;
 
     if (node.internal.type === `Mdx`) {
-        const parent = getNode(node.parent);
-        let value = parent.relativePath.replace(parent.ext, '');
-
-        if (value === 'index') {
-            value = '';
-        }
+        const value = createFilePath({ node, getNode });
 
         createNodeField({
             name: `slug`,
             node,
-            value: `/${value}`
+            value: value
         });
 
         createNodeField({
@@ -59,7 +55,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 };
 
 // These templates are simply data-fetching wrappers that import components
-const DocsTemplate = require.resolve(`./src/templates/docs-query`);
+const DocsTemplate = require.resolve(`./src/templates/docs`);
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
     const { createPage } = actions;
@@ -99,7 +95,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             context: {
                 ...node,
                 previous,
-                next
+                next,
+                layout: `index`
             }
         });
     });

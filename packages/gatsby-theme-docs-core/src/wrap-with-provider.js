@@ -1,5 +1,7 @@
 import React from 'react';
 
-import DocsLayout from './components/docs-layout';
+import DocsWrapper from './components/docs-wrapper';
 
-export default ({ element, props }) =><DocsLayout {...props}>{element}</DocsLayout>;
+export default ({ element, props }) => (
+    <DocsWrapper {...props}>{element}</DocsWrapper>
+);

@@ -17,7 +17,6 @@ module.exports = themeOptions => {
     ];
 
     return {
-        pathPrefix: `/`,
         siteMetadata: {
             title: `Gatsby Documentation`,
             description: `Minimal Gatsby Theme for documentation websites`,
@@ -63,11 +62,10 @@ module.exports = themeOptions => {
                     plugins: gatsbyRemarkPlugins
                 }
             },
-
             {
                 resolve: `gatsby-plugin-layout`,
                 options: {
-                    component: require.resolve(`./src/templates/docs-query.js`)
+                    component: require.resolve(`./src/layouts/index.js`)
                 }
             },
             {

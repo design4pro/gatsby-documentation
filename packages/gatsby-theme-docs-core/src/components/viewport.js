@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { node } from 'prop-types';
 import { Helmet } from 'react-helmet';
 
 export const Viewport = ({ children }) => {
@@ -16,7 +16,7 @@ export const Viewport = ({ children }) => {
 };
 
 Viewport.propTypes = {
-    children: PropTypes.node
+    children: node
 };
 
 export default Viewport;
