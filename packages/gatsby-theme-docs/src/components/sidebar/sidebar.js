@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
-import SidebarTree from './sidebar/tree';
+import SidebarTree from './sidebar-tree';
 
 export const Sidebar = () => {
     const { allMdx } = useStaticQuery(
@@ -12,6 +12,9 @@ export const Sidebar = () => {
                             fields {
                                 slug
                                 title
+                            }
+                            frontmatter {
+                                navPosition
                             }
                         }
                     }

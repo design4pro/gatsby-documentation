@@ -3,7 +3,7 @@ import { createMuiTheme } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
 import Layout from 'components/layout';
-import Seo from 'components/seo';
+import Seo from 'components/ui/seo';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { useTheme } from 'hooks/use-theme';
 import PropTypes from 'prop-types';

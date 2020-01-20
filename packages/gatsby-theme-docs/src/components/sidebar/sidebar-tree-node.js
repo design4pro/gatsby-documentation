@@ -1,6 +1,6 @@
 import { config } from '@design4pro/gatsby-theme-docs-core';
+import Link from 'components/ui/link';
 import React from 'react';
-import Link from 'components/link';
 
 export const SidebarTreeNode = props => {
     const {
@@ -17,9 +17,11 @@ export const SidebarTreeNode = props => {
     };
     const hasChildren = items.length !== 0;
     let location;
+
     if (typeof document != 'undefined') {
         location = document.location;
     }
+
     const active =
         location &&
         (location.pathname === url ||

@@ -1,49 +1,24 @@
 import AppBar from '@material-ui/core/AppBar';
 import Container from '@material-ui/core/Container';
 import Drawer from '@material-ui/core/Drawer';
-import { createStyles, makeStyles } from '@material-ui/styles';
+import Content from 'components/content';
+import Header from 'components/header';
+import Sidebar from 'components/sidebar';
+import CollapseOnScroll from 'components/ui/collapse-on-scroll';
+import HideOnScroll from 'components/ui/hide-on-scroll';
 import { useTheme } from 'hooks/use-theme';
 import { node } from 'prop-types';
-import React from 'react';
-import CollapseOnScroll from './collapse-on-scroll';
-import Content from './content';
-import Header from './header';
-import HideOnScroll from './hide-on-scroll';
-import Sidebar from './sidebar';
-
-const useStyles = makeStyles(theme =>
-    createStyles({
-        root: {
-            display: 'flex'
-        },
-        appBar: {
-            zIndex: theme.zIndex.drawer + 1
-        },
-        drawer: {
-            width: theme.drawerWidth,
-            flexShrink: 0
-        },
-        drawerPaper: {
-            width: theme.drawerWidth
-        },
-        content: {
-            flexGrow: 1,
-            padding: theme.spacing(3)
-        },
-        menuButton: {
-            marginRight: theme.spacing(2)
-        },
-        toolbar: theme.mixins.toolbar
-    })
-);
+import React, { useRef } from 'react';
+import { useStyles, FlexWrapper } from './layout.styles';
 
 export const Layout = props => {
     const { children } = props;
     const [theme] = useTheme();
     const classes = useStyles(theme);
+    const mainRef = useRef(null);
 
     return (
-        <div className={classes.root}>
+        <FlexWrapper ref={mainRef} className={classes.root}>
             <HideOnScroll {...props}>
                 <AppBar
                     position="fixed"
@@ -70,9 +45,11 @@ export const Layout = props => {
             <Container fixed className={classes.content}>
                 <div className={classes.toolbar} />
 
-                <Content {...props}>{children}</Content>
+                <Content mainRef={mainRef} {...props}>
+                    {children}
+                </Content>
             </Container>
-        </div>
+        </FlexWrapper>
     );
 };
 

@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@mdx-js/mdx": "^1.5.1",
+        "gatsby-plugin-google-analytics": "^2.1.33",
         "gatsby-plugin-layout": "^1.1.21",
         "gatsby-plugin-mdx": "^1.0.64",
         "gatsby-plugin-sharp": "^2.3.10",
@@ -30,9 +31,13 @@
         "gatsby-source-filesystem": "^2.1.43",
         "gatsby-transformer-remark": "^2.6.45",
         "gatsby-transformer-sharp": "^2.3.9",
+        "github-slugger": "^1.2.1",
+        "polished": "^3.4.2",
         "prop-types": "^15.6.2",
         "react-helmet": "^5.2.0",
-        "remark-slug": "^5.1.2"
+        "react-use": "^13.20.0",
+        "remark-slug": "^5.1.2",
+        "striptags": "^3.1.1"
     },
     "devDependencies": {
         "gatsby": "^2.18.17",

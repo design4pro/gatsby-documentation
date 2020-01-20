@@ -38,7 +38,7 @@ module.exports = themeOptions => {
                 links: [{ text: 'Home', link: '/' }]
             },
             sidebar: {
-                forcedNavOrder: []
+                ignoreIndex: false
             }
         },
         plugins: [

@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from './link';
+import Link from '../ui/link';
 
 export const NextPrevious = props => {
     const { docsPage, nav } = props;

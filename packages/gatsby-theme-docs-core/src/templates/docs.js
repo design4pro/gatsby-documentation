@@ -29,6 +29,10 @@ export const docsQuery = graphql`
                 metaTitle
                 metaDescription
             }
+            headings {
+                depth
+                value
+            }
         }
         allMdx {
             edges {

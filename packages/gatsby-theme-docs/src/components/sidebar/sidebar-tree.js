@@ -1,6 +1,6 @@
 import { config } from '@design4pro/gatsby-theme-docs-core';
 import React, { useState } from 'react';
-import SidebarTreeNode from './tree-node';
+import SidebarTreeNode from './sidebar-tree-node';
 
 const calculateTreeData = edges => {
     const originalData = config.siteMetadata.sidebar.ignoreIndex
@@ -18,24 +18,36 @@ const calculateTreeData = edges => {
             accu,
             {
                 node: {
-                    fields: { slug, title }
+                    fields: { slug, title },
+                    frontmatter: { navPosition }
                 }
             }
         ) => {
             const parts = slug.split('/');
             let { items: prevItems } = accu;
+
             for (const part of parts.slice(1, -1)) {
                 let tmp = prevItems.find(({ label }) => label === part);
+
                 if (tmp) {
                     if (!tmp.items) {
                         tmp.items = [];
                     }
                 } else {
-                    tmp = { label: part, items: [] };
+                    tmp = {
+                        url: slug,
+                        label: part,
+                        items: [],
+                        position: navPosition || 100
+                    };
                     prevItems.push(tmp);
                 }
-                prevItems = tmp.items;
+
+                prevItems = tmp.items.sort((a, b) =>
+                    a.position > b.position ? 1 : -1
+                );
             }
+
             const existingItem = prevItems.find(
                 ({ label }) => label === parts[parts.length - 1]
             );
@@ -48,65 +60,25 @@ const calculateTreeData = edges => {
                     label: parts[parts.length - 1],
                     url: slug,
                     items: [],
-                    title
+                    title,
+                    position: navPosition || 100
                 });
             }
+
+            accu.items.sort((a, b) => (a.position > b.position ? 1 : -1));
 
             return accu;
         },
         { items: [] }
     );
 
-    const {
-        siteMetadata: {
-            sidebar: { forcedNavOrder = [] }
-        }
-    } = config;
-
-    const tmp = [...forcedNavOrder];
-
-    tmp.reverse();
-
-    return tmp.reduce((accu, slug) => {
-        const parts = slug.split('/');
-        let { items: prevItems } = accu;
-
-        for (const part of parts.slice(1, -1)) {
-            let tmp = prevItems.find(({ label }) => label === part);
-
-            if (tmp) {
-                if (!tmp.items) {
-                    tmp.items = [];
-                }
-            } else {
-                tmp = { label: part, items: [] };
-                prevItems.push(tmp);
-            }
-            prevItems = tmp.items;
-        }
-
-        // sort items alphabetically.
-        // eslint-disable-next-line array-callback-return
-        prevItems.map(item => {
-            item.items = item.items.sort(function(a, b) {
-                if (a.label < b.label) return -1;
-                if (a.label > b.label) return 1;
-                return 0;
-            });
-        });
-        const index = prevItems.findIndex(
-            ({ label }) => label === parts[parts.length - 1]
-        );
-        accu.items.unshift(prevItems.splice(index, 1)[0]);
-        return accu;
-    }, tree);
+    return tree;
 };
 
 export const SidebarTree = props => {
     const { edges } = props;
-    const [treeData] = useState(() => {
-        return calculateTreeData(edges);
-    });
+    const [treeData] = useState(() => calculateTreeData(edges));
+
     const defaultCollapsed = {};
     treeData.items.forEach(item => {
         if (
@@ -118,6 +90,7 @@ export const SidebarTree = props => {
             defaultCollapsed[item.url] = false;
         }
     });
+
     const [collapsed, setCollapsed] = useState(defaultCollapsed);
     const toggle = url => {
         setCollapsed({

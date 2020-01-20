@@ -1,10 +1,10 @@
 import { darken, Typography } from '@material-ui/core';
 import Toolbar from '@material-ui/core/Toolbar';
 import { createStyles, makeStyles } from '@material-ui/styles';
+import { Link } from 'components/ui/link';
 import { graphql, useStaticQuery } from 'gatsby';
-import React from 'react';
 import { useTheme } from 'hooks/use-theme';
-import { Link } from './link';
+import React from 'react';
 import { SwitchTheme } from './switch-theme';
 
 const useStyles = makeStyles(theme =>
