@@ -1,5 +1,5 @@
 import { config } from '@design4pro/gatsby-theme-docs-core';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import SidebarTreeNode from './sidebar-tree-node';
 
 const calculateTreeData = edges => {
@@ -19,7 +19,7 @@ const calculateTreeData = edges => {
             {
                 node: {
                     fields: { slug, title },
-                    frontmatter: { navPosition }
+                    frontmatter: { navPosition, sidebarTitle }
                 }
             }
         ) => {
@@ -54,13 +54,13 @@ const calculateTreeData = edges => {
 
             if (existingItem) {
                 existingItem.url = slug;
-                existingItem.title = title;
+                existingItem.title = sidebarTitle || title;
             } else {
                 prevItems.push({
                     label: parts[parts.length - 1],
                     url: slug,
                     items: [],
-                    title,
+                    title: sidebarTitle || title,
                     position: navPosition || 100
                 });
             }
@@ -71,6 +71,7 @@ const calculateTreeData = edges => {
         },
         { items: [] }
     );
+    console.log({ tree });
 
     return tree;
 };
@@ -78,6 +79,7 @@ const calculateTreeData = edges => {
 export const SidebarTree = props => {
     const { edges } = props;
     const [treeData] = useState(() => calculateTreeData(edges));
+    console.log({ treeData });
 
     const defaultCollapsed = {};
     treeData.items.forEach(item => {
@@ -100,16 +102,17 @@ export const SidebarTree = props => {
     };
 
     return (
-        <SidebarTreeNode
-            className={`${
-                config.siteMetadata.sidebar.frontLine
-                    ? 'showFrontLine'
-                    : 'hideFrontLine'
-            } firstLevel`}
-            setCollapsed={toggle}
-            collapsed={collapsed}
-            {...treeData}
-        />
+        <Fragment>
+            {treeData.items.map(item => (
+                <SidebarTreeNode
+                    className={`firstLevel`}
+                    key={item.url}
+                    setCollapsed={toggle}
+                    collapsed={collapsed}
+                    {...item}
+                />
+            ))}
+        </Fragment>
     );
 };
 

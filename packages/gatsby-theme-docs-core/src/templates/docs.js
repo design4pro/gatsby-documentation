@@ -6,6 +6,7 @@ export default Docs;
 export const docsQuery = graphql`
     query DocsQuery($id: String!) {
         site {
+            pathPrefix
             siteMetadata {
                 title
                 docsLocation

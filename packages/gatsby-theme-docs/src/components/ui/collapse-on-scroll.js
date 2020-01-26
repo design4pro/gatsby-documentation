@@ -1,15 +1,24 @@
 import Collapse from '@material-ui/core/Collapse';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import { bool, node, number } from 'prop-types';
 import React from 'react';
 
 export const CollapseOnScroll = props => {
-    const { children, window } = props;
-    // Note that you normally won't need to set the window ref as useScrollTrigger
-    // will default to window.
-    // This is only being set here because the demo is in an iframe.
-    const trigger = useScrollTrigger({ target: window ? window() : undefined });
+    const { children, revert, disableHysteresis, threshold } = props;
 
-    return <Collapse in={!trigger}>{children}</Collapse>;
+    const trigger = useScrollTrigger({
+        disableHysteresis,
+        threshold
+    });
+
+    return <Collapse in={revert ? trigger : !trigger}>{children}</Collapse>;
+};
+
+CollapseOnScroll.propTypes = {
+    children: node,
+    revert: bool,
+    disableHysteresis: bool,
+    threshold: number
 };
 
 export default CollapseOnScroll;

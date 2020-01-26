@@ -1,7 +1,8 @@
-import { config } from '@design4pro/gatsby-theme-docs-core';
+import { CustomLinkContext } from '@design4pro/gatsby-theme-docs-core';
 import { createMuiTheme } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
+import { MDXProvider } from '@mdx-js/react';
 import Layout from 'components/layout';
 import Seo from 'components/ui/seo';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
@@ -10,18 +11,27 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { getBrowserTheme } from 'utils/browser-theme';
 import theme from '../theme';
+import components from './mdx/components';
 
 export const Docs = props => {
     const {
-        data: { mdx }
+        data: {
+            mdx,
+            site: {
+                pathPrefix,
+                siteMetadata: { siteUrl }
+            }
+        }
     } = props;
+
+    console.log({ props });
 
     // SEO data
     const metaTitle = mdx ? mdx.frontmatter.metaTitle : undefined;
     const metaDescription = mdx ? mdx.frontmatter.metaDescription : undefined;
-    let canonicalUrl = config.siteMetadata.siteUrl;
+    let canonicalUrl = siteUrl;
     canonicalUrl =
-        config.basePath !== '/' ? canonicalUrl + config.basePath : canonicalUrl;
+        pathPrefix !== '/' ? canonicalUrl + pathPrefix : canonicalUrl;
     canonicalUrl = canonicalUrl + (mdx ? mdx.slug : undefined);
 
     // We keep the theme in app state
@@ -49,7 +59,18 @@ export const Docs = props => {
                 canonicalUrl={canonicalUrl}
             />
             <Layout {...props}>
-                {mdx && <MDXRenderer>{mdx.body}</MDXRenderer>}
+                <CustomLinkContext.Provider
+                    value={{
+                        pathPrefix,
+                        siteUrl
+                    }}
+                >
+                    {mdx && (
+                        <MDXProvider components={components}>
+                            <MDXRenderer>{mdx.body}</MDXRenderer>
+                        </MDXProvider>
+                    )}
+                </CustomLinkContext.Provider>
             </Layout>
         </ThemeProvider>
     );

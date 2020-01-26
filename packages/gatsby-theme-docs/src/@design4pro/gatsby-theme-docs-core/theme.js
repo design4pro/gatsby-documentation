@@ -4,9 +4,18 @@ export default theme => ({
             main: theme === 'light' ? '#3884FE' : '#FFF',
             background: '#FFFFFF'
         },
-        divider: theme === 'light' ? '#d4dadf' : 'rgba(255,255,255,0.2)',
+        divider: theme === 'light' ? '#d4dadf' : 'rgba(255, 255, 255, 0.2)',
         background: {
             default: theme === 'light' ? '#FFF' : '#212121'
+        },
+        text: {
+            primary: theme === 'light' ? '#242A31' : '#FFF',
+            secondary:
+                theme === 'light' ? '#74818D' : 'rgba(255, 255, 255, 0.7)'
+        },
+        action: {
+            active: theme === 'light' ? '#3884FE' : '#FFF',
+            hover: theme === 'light' ? '#3884FE' : 'rgba(255, 255, 255, 0.7)'
         }
     },
     overrides: {

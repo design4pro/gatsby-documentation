@@ -1,15 +1,14 @@
+import Typography from '@material-ui/core/Typography';
 import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 import Slugger from 'github-slugger';
 import { array, object } from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import useScroll from 'react-use/lib/useScroll';
+import useWindowScroll from 'react-use/lib/useWindowScroll';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import striptags from 'striptags';
 import { StyledList, StyledListItem } from './section-nav.styles';
 
 function handleHeadingClick(event) {
-    // To stop the page reloading
-    event.preventDefault();
     // Lets track that custom click
     trackCustomEvent({
         // string - required - The object that was interacted with (e.g.video)
@@ -22,11 +21,10 @@ function handleHeadingClick(event) {
 }
 
 export const SectionNav = props => {
-    const { y } = useScroll(props.mainRef);
+    const { contentRef } = props;
+    const { y } = useWindowScroll();
     const { width, height } = useWindowSize();
     const [offsets, setOffsets] = useState([]);
-
-    const { contentRef } = props;
 
     useEffect(() => {
         const headings = contentRef.current.querySelectorAll('h1, h2');
@@ -42,7 +40,7 @@ export const SectionNav = props => {
 
                     return {
                         id: heading.id,
-                        offset: anchor.offsetTop
+                        offset: heading.offsetTop + anchor.offsetTop
                     };
                 })
                 .filter(Boolean)
@@ -83,7 +81,7 @@ export const SectionNav = props => {
                         active={slug === activeHeading}
                     >
                         <a href={`#${slug}`} onClick={handleHeadingClick}>
-                            {text}
+                            <Typography variant="caption">{text}</Typography>
                         </a>
                     </StyledListItem>
                 );
@@ -94,7 +92,6 @@ export const SectionNav = props => {
 
 SectionNav.propTypes = {
     headings: array.isRequired,
-    mainRef: object.isRequired,
     contentRef: object.isRequired
 };
 

@@ -1,8 +1,12 @@
 import { config } from '@design4pro/gatsby-theme-docs-core';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Link from 'components/ui/link';
 import React from 'react';
 
 export const SidebarTreeNode = props => {
+    console.log({ props });
+
     const {
         className = '',
         setCollapsed,
@@ -12,6 +16,7 @@ export const SidebarTreeNode = props => {
         items
     } = props;
     const isCollapsed = collapsed[url];
+    const Icon = isCollapsed ? ExpandMoreIcon : ExpandLessIcon;
     const collapse = () => {
         setCollapsed(url);
     };
@@ -27,28 +32,26 @@ export const SidebarTreeNode = props => {
         (location.pathname === url ||
             location.pathname === config.pathPrefix + url);
     const calculatedClassName = `${className} item ${active ? 'active' : ''}`;
+    console.log({ title, items, hasChildren });
 
     return (
-        <li className={calculatedClassName}>
+        <div className={calculatedClassName}>
             {title && (
                 <Link to={url}>
-                    {title}
-                    {!config.siteMetadata.sidebar.frontLine &&
-                    title &&
-                    hasChildren ? (
+                    {title}-{!!hasChildren}-
+                    {hasChildren ? (
                         <button
                             onClick={collapse}
                             aria-label="collapse"
                             className="collapser"
                         >
-                            {/* {!isCollapsed ? <OpenedSvg /> : <ClosedSvg />} */}
+                            <Icon />d
                         </button>
                     ) : null}
                 </Link>
             )}
-
             {!isCollapsed && hasChildren ? (
-                <ul>
+                <div>
                     {items.map(item => (
                         <SidebarTreeNode
                             key={item.url}
@@ -57,9 +60,9 @@ export const SidebarTreeNode = props => {
                             {...item}
                         />
                     ))}
-                </ul>
+                </div>
             ) : null}
-        </li>
+        </div>
     );
 };
 

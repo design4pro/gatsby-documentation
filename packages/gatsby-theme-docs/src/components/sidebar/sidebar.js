@@ -1,32 +1,18 @@
-import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import SidebarTree from './sidebar-tree';
+import { SideBarDiv } from './sidebar.styles';
 
-export const Sidebar = () => {
-    const { allMdx } = useStaticQuery(
-        graphql`
-            query SidebarQuery {
-                allMdx {
-                    edges {
-                        node {
-                            fields {
-                                slug
-                                title
-                            }
-                            frontmatter {
-                                navPosition
-                            }
-                        }
-                    }
-                }
-            }
-        `
-    );
+export const Sidebar = props => {
+    console.log({ props });
+
+    const {
+        pageContext: { versionEdges }
+    } = props;
 
     return (
-        <ul>
-            <SidebarTree edges={allMdx.edges} />
-        </ul>
+        <SideBarDiv>
+            <SidebarTree edges={versionEdges} />
+        </SideBarDiv>
     );
 };
 

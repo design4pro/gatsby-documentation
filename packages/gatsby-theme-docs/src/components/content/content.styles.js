@@ -22,12 +22,20 @@ export const Aside = styled('aside')(({ theme }) => ({
     marginLeft: 'auto',
     paddingRight: 0,
     position: 'sticky',
+    top: 0,
     // top: headerheight,
     [theme.breakpoints.down('md')]: {
         display: 'none'
     }
 }));
 
-export const AsideHeading = styled('h4')({
-    fontWeight: 600
-});
+export const AsideHeading = styled('h4')(({ theme }) => ({
+    color: theme.palette.text.secondary,
+    paddingRight: '1rem',
+    '& > *': {
+        display: 'block',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis'
+    }
+}));

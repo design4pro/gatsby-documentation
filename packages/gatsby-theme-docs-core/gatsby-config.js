@@ -4,6 +4,7 @@ module.exports = themeOptions => {
     const options = withDefaults(themeOptions);
 
     const gatsbyRemarkPlugins = [
+        `gatsby-remark-autolink-headers`,
         {
             resolve: `gatsby-remark-images`,
             options: {
@@ -12,8 +13,8 @@ module.exports = themeOptions => {
                 linkImagesToOriginal: false
             }
         },
-        { resolve: `gatsby-remark-copy-linked-files` },
-        { resolve: `gatsby-remark-smartypants` }
+        `gatsby-remark-copy-linked-files`,
+        `gatsby-remark-smartypants`
     ];
 
     return {
