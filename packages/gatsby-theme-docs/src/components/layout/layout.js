@@ -2,7 +2,7 @@ import Content from 'components/content';
 import Header from 'components/header';
 import Sidebar from 'components/sidebar';
 import CollapseOnScroll from 'components/ui/collapse-on-scroll';
-import { ToolbarOffset } from 'components/ui/global';
+import useGlobalStyles from 'components/ui/global.styles';
 import HideOnScroll from 'components/ui/hide-on-scroll';
 import { node } from 'prop-types';
 import React from 'react';
@@ -13,6 +13,7 @@ export const Layout = props => {
         children,
         location: { hash }
     } = props;
+    const classes = useGlobalStyles();
 
     return (
         <FlexWrapper>
@@ -23,7 +24,7 @@ export const Layout = props => {
             </HideOnScroll>
             <Drawer variant="permanent">
                 <CollapseOnScroll threshold={1} disableHysteresis={true}>
-                    <ToolbarOffset />
+                    <div className={classes.toolbarOffset}></div>
                 </CollapseOnScroll>
 
                 <Sidebar {...props} />

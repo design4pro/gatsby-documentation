@@ -1,18 +1,18 @@
 import React from 'react';
 import SidebarTree from './sidebar-tree';
-import { SideBarDiv } from './sidebar.styles';
+import useStyles from './sidebar.styles';
 
 export const Sidebar = props => {
-    console.log({ props });
+    const classes = useStyles();
 
     const {
         pageContext: { versionEdges }
     } = props;
 
     return (
-        <SideBarDiv>
+        <div className={classes.root}>
             <SidebarTree edges={versionEdges} />
-        </SideBarDiv>
+        </div>
     );
 };
 

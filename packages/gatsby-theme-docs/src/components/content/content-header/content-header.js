@@ -1,16 +1,17 @@
 import { shape, string } from 'prop-types';
 import React from 'react';
-import { Heading, Subheading } from './content-header.styles';
+import useStyles from './content-header.styles';
 
 export const ContentHeader = props => {
     const {
         fields: { title, description }
     } = props;
+    const classes = useStyles();
 
     return (
         <div className="header-wrapper">
-            <Heading>{title}</Heading>
-            {description && <Subheading>{description}</Subheading>}
+            <h1 className={classes.heading}>{title}</h1>
+            {description && <h3>{description}</h3>}
         </div>
     );
 };

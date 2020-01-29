@@ -5,10 +5,9 @@ import Link from 'components/ui/link';
 import React from 'react';
 
 export const SidebarTreeNode = props => {
-    console.log({ props });
-
     const {
         className = '',
+        depth = 0,
         setCollapsed,
         collapsed,
         url,
@@ -31,29 +30,37 @@ export const SidebarTreeNode = props => {
         location &&
         (location.pathname === url ||
             location.pathname === config.pathPrefix + url);
-    const calculatedClassName = `${className} item ${active ? 'active' : ''}`;
-    console.log({ title, items, hasChildren });
+    const calculatedClassName = `${className} item ${
+        active ? 'active' : ''
+    } depth-${depth}`;
+
+    let nextDepth = depth;
+
+    if (hasChildren) {
+        nextDepth = depth + 1;
+    }
 
     return (
         <div className={calculatedClassName}>
             {title && (
                 <Link to={url}>
-                    {title}-{!!hasChildren}-
+                    {title}
                     {hasChildren ? (
                         <button
                             onClick={collapse}
                             aria-label="collapse"
                             className="collapser"
                         >
-                            <Icon />d
+                            <Icon />
                         </button>
                     ) : null}
                 </Link>
             )}
             {!isCollapsed && hasChildren ? (
-                <div>
+                <div className={'hasChildren'}>
                     {items.map(item => (
                         <SidebarTreeNode
+                            depth={nextDepth}
                             key={item.url}
                             setCollapsed={setCollapsed}
                             collapsed={collapsed}

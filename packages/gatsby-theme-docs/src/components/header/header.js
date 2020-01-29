@@ -1,15 +1,9 @@
 import { Typography } from '@material-ui/core';
 import Toolbar from '@material-ui/core/Toolbar';
+import Link from 'components/ui/link';
 import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
-import {
-    LinkDiv,
-    LinkTag,
-    Title,
-    TitleLink,
-    ToolbarInner,
-    ToolbarLinks
-} from './header.styles';
+import useStyles from './header.styles';
 import { SwitchTheme } from './switch-theme';
 
 export const Header = () => {
@@ -34,38 +28,44 @@ export const Header = () => {
             }
         `
     );
+    const classes = useStyles();
     const finalLink = header.link ? header.link : '/';
 
     return (
         <Toolbar>
-            <Title>
-                <TitleLink to={finalLink} color="inherit">
+            <div className={classes.title}>
+                <Link
+                    to={finalLink}
+                    color="inherit"
+                    className={classes.titleLink}
+                >
                     <Typography variant="h6">{header.title}</Typography>
-                </TitleLink>
-            </Title>
-            <ToolbarInner>
-                <ToolbarLinks>
+                </Link>
+            </div>
+            <div className={classes.toolbarInner}>
+                <div className={classes.toolbarLinks}>
                     {header.links.map((link, key) => {
                         if (link.link !== '' && link.text !== '') {
                             return (
-                                <LinkDiv key={key}>
-                                    <LinkTag
+                                <div className={classes.linkDiv} key={key}>
+                                    <Link
                                         to={link.link}
                                         target="_blank"
                                         rel="noopener"
                                         color="primary"
                                         variant="subtitle1"
+                                        className={classes.link}
                                     >
                                         {link.text}
-                                    </LinkTag>
-                                </LinkDiv>
+                                    </Link>
+                                </div>
                             );
                         }
 
                         return '';
                     })}
-                </ToolbarLinks>
-            </ToolbarInner>
+                </div>
+            </div>
             <div>
                 <SwitchTheme />
             </div>

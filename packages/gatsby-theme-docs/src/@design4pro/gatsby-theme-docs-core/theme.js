@@ -15,7 +15,8 @@ export default theme => ({
         },
         action: {
             active: theme === 'light' ? '#3884FE' : '#FFF',
-            hover: theme === 'light' ? '#3884FE' : 'rgba(255, 255, 255, 0.7)'
+            hover: theme === 'light' ? '#3884FE' : 'rgba(255, 255, 255, 0.7)',
+            background: theme === 'light' ? '#E6ECF1' : 'rgba(255,255,255,0.2)'
         }
     },
     overrides: {

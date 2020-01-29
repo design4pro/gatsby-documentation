@@ -1,17 +1,11 @@
 import Typography from '@material-ui/core/Typography';
 import CollapseOnScroll from 'components/ui/collapse-on-scroll';
-import { ToolbarOffset } from 'components/ui/global';
+import useGlobalStyles from 'components/ui/global.styles';
 import { Link } from 'components/ui/link';
-import React, { useRef } from 'react';
+import React, { Fragment, useRef } from 'react';
 import useMount from 'react-use/lib/useMount';
 import ContentHeader from './content-header';
-import {
-    Aside,
-    AsideHeading,
-    BodyContent,
-    Container,
-    MainContent
-} from './content.styles';
+import useStyles from './content.styles';
 import SectionNav from './section-nav';
 
 const Content = props => {
@@ -25,6 +19,8 @@ const Content = props => {
         }
     } = props;
     const contentRef = useRef(null);
+    const classes = useStyles();
+    const globalClasses = useGlobalStyles();
 
     useMount(() => {
         if (props.hash) {
@@ -45,12 +41,12 @@ const Content = props => {
     });
 
     return (
-        <Container>
-            <MainContent>
-                <ToolbarOffset />
+        <div className={classes.container}>
+            <main className={classes.mainContent}>
+                <div className={globalClasses.toolbarOffset}></div>
                 <ContentHeader {...mdx} />
                 <hr />
-                <BodyContent ref={contentRef}>
+                <div ref={contentRef}>
                     <h1>{mdx.title}</h1>
 
                     {mdx.parent.relativePath && (
@@ -65,25 +61,27 @@ const Content = props => {
                     <div>{children}</div>
                     <div>{/* <NextPrevious docsPage={mdx} /> */}</div>
                     <pre>{JSON.stringify(props.data, null, 2)}</pre>
-                </BodyContent>
-            </MainContent>
-            <Aside>
+                </div>
+            </main>
+            <aside className={classes.aside}>
                 <CollapseOnScroll threshold={1} disableHysteresis={true}>
-                    <ToolbarOffset />
+                    <div className={globalClasses.toolbarOffset}></div>
                 </CollapseOnScroll>
-                <AsideHeading>
-                    <Typography variant="overline">
-                        {mdx.fields.title}
-                    </Typography>
-                </AsideHeading>
-                {mdx.headings.length > 0 && (
-                    <SectionNav
-                        headings={mdx.headings}
-                        contentRef={contentRef}
-                    />
+                {mdx.headings.length > 1 && (
+                    <Fragment>
+                        <h4 className={classes.asideHeading}>
+                            <Typography variant="overline">
+                                {mdx.fields.title}
+                            </Typography>
+                        </h4>
+                        <SectionNav
+                            headings={mdx.headings}
+                            contentRef={contentRef}
+                        />
+                    </Fragment>
                 )}
-            </Aside>
-        </Container>
+            </aside>
+        </div>
     );
 };
 

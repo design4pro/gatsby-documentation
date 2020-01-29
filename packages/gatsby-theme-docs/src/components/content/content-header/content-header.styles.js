@@ -1,9 +1,9 @@
-import { styled } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/styles';
 
-export const Heading = styled('h1')({
-    '&:not(:last-child)': {
-        marginBottom: 8
+export default makeStyles(() => ({
+    heading: {
+        '&:not(:last-child)': {
+            marginBottom: 8
+        }
     }
-});
-
-export const Subheading = styled('h3')({});
+}));

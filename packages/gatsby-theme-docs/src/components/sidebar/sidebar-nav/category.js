@@ -18,6 +18,7 @@ export const Category = props => {
     );
 
     const className = props.active && 'active';
+
     return (
         <div>
             {!props.onClick && props.path ? (

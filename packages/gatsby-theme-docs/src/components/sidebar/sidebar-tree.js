@@ -13,65 +13,62 @@ const calculateTreeData = edges => {
           )
         : edges;
 
-    const tree = originalData.reduce(
-        (
-            accu,
-            {
-                node: {
-                    fields: { slug, title },
-                    frontmatter: { navPosition, sidebarTitle }
-                }
-            }
-        ) => {
-            const parts = slug.split('/');
-            let { items: prevItems } = accu;
+    console.log({ originalData });
 
-            for (const part of parts.slice(1, -1)) {
-                let tmp = prevItems.find(({ label }) => label === part);
-
-                if (tmp) {
-                    if (!tmp.items) {
-                        tmp.items = [];
+    const tree = originalData
+        .sort((a, b) => (a.node.fields.slug > b.node.fields.slug ? 1 : -1))
+        .reduce(
+            (
+                accu,
+                {
+                    node: {
+                        fields: { slug, title },
+                        frontmatter: { navPosition, sidebarTitle }
                     }
-                } else {
-                    tmp = {
+                }
+            ) => {
+                const parts = slug.split('/');
+                let { items: prevItems } = accu;
+
+                for (const part of parts.slice(1, -1)) {
+                    let tmp = prevItems.find(({ label }) => label === part);
+
+                    if (tmp) {
+                        if (!tmp.items) {
+                            tmp.items = [];
+                        }
+                    } else {
+                        tmp = {
+                            url: slug,
+                            label: part,
+                            title: sidebarTitle || title,
+                            items: [],
+                            position: navPosition || 100
+                        };
+                        prevItems.push(tmp);
+                    }
+
+                    prevItems = tmp.items.sort((a, b) =>
+                        a.position > b.position ? 1 : -1
+                    );
+                }
+
+                if (slug === '/') {
+                    prevItems.push({
                         url: slug,
-                        label: part,
+                        label: parts[parts.length - 1],
+                        title: sidebarTitle || title,
                         items: [],
                         position: navPosition || 100
-                    };
-                    prevItems.push(tmp);
+                    });
                 }
 
-                prevItems = tmp.items.sort((a, b) =>
-                    a.position > b.position ? 1 : -1
-                );
-            }
+                accu.items.sort((a, b) => (a.position > b.position ? 1 : -1));
 
-            const existingItem = prevItems.find(
-                ({ label }) => label === parts[parts.length - 1]
-            );
-
-            if (existingItem) {
-                existingItem.url = slug;
-                existingItem.title = sidebarTitle || title;
-            } else {
-                prevItems.push({
-                    label: parts[parts.length - 1],
-                    url: slug,
-                    items: [],
-                    title: sidebarTitle || title,
-                    position: navPosition || 100
-                });
-            }
-
-            accu.items.sort((a, b) => (a.position > b.position ? 1 : -1));
-
-            return accu;
-        },
-        { items: [] }
-    );
-    console.log({ tree });
+                return accu;
+            },
+            { items: [] }
+        );
 
     return tree;
 };
@@ -79,7 +76,6 @@ const calculateTreeData = edges => {
 export const SidebarTree = props => {
     const { edges } = props;
     const [treeData] = useState(() => calculateTreeData(edges));
-    console.log({ treeData });
 
     const defaultCollapsed = {};
     treeData.items.forEach(item => {

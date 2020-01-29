@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import useWindowScroll from 'react-use/lib/useWindowScroll';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import striptags from 'striptags';
-import { StyledList, StyledListItem } from './section-nav.styles';
+import useStyles from './section-nav.styles';
 
 function handleHeadingClick(event) {
     // Lets track that custom click
@@ -20,11 +20,19 @@ function handleHeadingClick(event) {
     });
 }
 
+const SectionNavItem = props => {
+    const { children } = props;
+    const classes = useStyles(props);
+
+    return <div className={classes.listItem}>{children}</div>;
+};
+
 export const SectionNav = props => {
     const { contentRef } = props;
     const { y } = useWindowScroll();
     const { width, height } = useWindowSize();
     const [offsets, setOffsets] = useState([]);
+    const classes = useStyles();
 
     useEffect(() => {
         const headings = contentRef.current.querySelectorAll('h1, h2');
@@ -64,7 +72,7 @@ export const SectionNav = props => {
     let lastDepth = false;
 
     return (
-        <StyledList>
+        <div className={classes.list}>
             {props.headings.map(({ value, depth }) => {
                 const text = striptags(value);
                 const slug = slugger.slug(text);
@@ -74,7 +82,7 @@ export const SectionNav = props => {
                 lastDepth = depth;
 
                 return (
-                    <StyledListItem
+                    <SectionNavItem
                         depth={depth}
                         newSection={newSection}
                         key={slug}
@@ -83,10 +91,10 @@ export const SectionNav = props => {
                         <a href={`#${slug}`} onClick={handleHeadingClick}>
                             <Typography variant="caption">{text}</Typography>
                         </a>
-                    </StyledListItem>
+                    </SectionNavItem>
                 );
             })}
-        </StyledList>
+        </div>
     );
 };
 
