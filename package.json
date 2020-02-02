@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "commitmsg": "commitlint -e $GIT_PARAMS",
     "nx": "nx",
     "start": "nx serve",
     "build": "nx build",
@@ -23,18 +24,53 @@
     "update": "nx migrate latest",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "local-registry": "./tools/scripts/local-registry.sh"
   },
   "private": true,
-  "dependencies": {},
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@commitlint/prompt-cli": "^8.3.5",
+    "@nrwl/jest": "8.12.1",
+    "@nrwl/nx-plugin": "^8.12.1",
     "@nrwl/workspace": "8.12.1",
-    "@types/node": "~8.9.4",
+    "@types/jest": "24.0.9",
+    "@types/node": "^13.7.0",
+    "@types/prop-types": "^15.7.3",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "^16.9.5",
     "dotenv": "6.2.0",
+    "eslint": "6.1.0",
+    "husky": "^4.2.1",
+    "jest": "24.1.0",
+    "lint-staged": "^10.0.7",
+    "prettier": "^1.18.2",
+    "release-it": "^12.4.3",
+    "ts-jest": "^24.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "eslint": "6.1.0",
     "typescript": "~3.5.3",
-    "prettier": "1.18.2"
+    "yargs-parser": "^16.1.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "libs/*"
+  ],
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.(ts|tsx)": [
+      "npm run --silent lint:fix",
+      "git add"
+    ]
   }
 }

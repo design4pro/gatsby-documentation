@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "jsx": "react",
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
@@ -15,7 +16,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@design4pro/gatsby": ["libs/gatsby/src/index.ts"],
+      "@design4pro/gatsby-theme-docs-core": [
+        "libs/gatsby-theme-docs-core/src/index.ts"
+      ],
+      "@design4pro/gatsby-theme-docs": ["libs/gatsby-theme-docs/src/index.ts"]
+    }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "libs/**/node_modules", "tmp", "public", ".cache"]
 }

@@ -1,6 +1,152 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "gatsby": {
+      "root": "libs/gatsby",
+      "sourceRoot": "libs/gatsby/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/gatsby/.eslintrc",
+            "tsConfig": [
+              "libs/gatsby/tsconfig.lib.json",
+              "libs/gatsby/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/gatsby/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/gatsby/jest.config.js",
+            "tsConfig": "libs/gatsby/tsconfig.spec.json"
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/gatsby",
+            "tsConfig": "libs/gatsby/tsconfig.lib.json",
+            "packageJson": "libs/gatsby/package.json",
+            "main": "libs/gatsby/src/index.ts",
+            "assets": [
+              "libs/gatsby/*.md",
+              {
+                "input": "./libs/gatsby/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/gatsby",
+                "glob": "collection.json",
+                "output": "."
+              },
+              {
+                "input": "./libs/gatsby",
+                "glob": "builders.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "gatsby-e2e": {
+      "projectType": "application",
+      "root": "apps/gatsby-e2e",
+      "sourceRoot": "apps/gatsby-e2e/src",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "gatsby:build",
+            "npmPackageName": "@gatsby-theme-docs/gatsby",
+            "pluginOutputPath": "dist/libs/gatsby",
+            "jestConfig": "apps/gatsby-e2e/jest.config.js",
+            "tsSpecConfig": "apps/gatsby-e2e/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "gatsby-theme-docs-core": {
+      "root": "libs/gatsby-theme-docs-core",
+      "sourceRoot": "libs/gatsby-theme-docs-core/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/gatsby-theme-docs-core/.eslintrc",
+            "tsConfig": [
+              "libs/gatsby-theme-docs-core/tsconfig.lib.json",
+              "libs/gatsby-theme-docs-core/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/gatsby-theme-docs-core/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/gatsby-theme-docs-core/jest.config.js",
+            "tsConfig": "libs/gatsby-theme-docs-core/tsconfig.spec.json"
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/gatsby-theme-docs-core",
+            "tsConfig": "libs/gatsby-theme-docs-core/tsconfig.lib.json",
+            "packageJson": "libs/gatsby-theme-docs-core/package.json",
+            "main": "libs/gatsby-theme-docs-core/src/index.ts",
+            "assets": ["libs/gatsby-theme-docs-core/*.md"]
+          }
+        }
+      }
+    },
+    "gatsby-theme-docs": {
+      "root": "libs/gatsby-theme-docs",
+      "sourceRoot": "libs/gatsby-theme-docs/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/gatsby-theme-docs/.eslintrc",
+            "tsConfig": [
+              "libs/gatsby-theme-docs/tsconfig.lib.json",
+              "libs/gatsby-theme-docs/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/gatsby-theme-docs/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/gatsby-theme-docs/jest.config.js",
+            "tsConfig": "libs/gatsby-theme-docs/tsconfig.spec.json"
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/gatsby-theme-docs",
+            "tsConfig": "libs/gatsby-theme-docs/tsconfig.lib.json",
+            "packageJson": "libs/gatsby-theme-docs/package.json",
+            "main": "libs/gatsby-theme-docs/src/index.ts",
+            "assets": ["libs/gatsby-theme-docs/*.md"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "defaultCollection": "@nrwl/workspace"
   },

@@ -1,5 +1,5 @@
 {
-  "npmScope": "gatsby-theme-docs",
+  "npmScope": "design4pro",
   "implicitDependencies": {
     "workspace.json": "*",
     "package.json": {
@@ -10,5 +10,19 @@
     "tslint.json": "*",
     "nx.json": "*"
   },
-  "projects": {}
+  "projects": {
+    "gatsby": {
+      "tags": []
+    },
+    "gatsby-e2e": {
+      "tags": [],
+      "implicitDependencies": ["gatsby"]
+    },
+    "gatsby-theme-docs-core": {
+      "tags": []
+    },
+    "gatsby-theme-docs": {
+      "tags": []
+    }
+  }
 }

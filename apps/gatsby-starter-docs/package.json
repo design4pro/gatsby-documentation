@@ -1,0 +1,47 @@
+{
+    "name": "@design4pro/gatsby-starter-docs",
+    "description": "A starter for a documentation powered by Gatsby and Markdown",
+    "version": "0.0.0",
+    "scripts": {
+        "build": "gatsby build",
+        "develop": "gatsby develop",
+        "start": "npm run develop",
+        "serve": "gatsby serve",
+        "clean": "gatsby clean",
+        "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    },
+    "dependencies": {
+        "@design4pro/gatsby-theme-docs": "^0.0.0",
+        "gatsby": "^2.18.17",
+        "gatsby-plugin-manifest": "^2.2.41",
+        "gatsby-plugin-offline": "^3.0.34",
+        "gatsby-transformer-sharp": "^2.3.14",
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0"
+    },
+    "homepage": "https://github.com/design4pro/gatsby-starter-docs#readme",
+    "keywords": [
+        "gatsby"
+    ],
+    "license": "MIT",
+    "main": "n/a",
+    "author": "Rafał Wolak <r.wolak@design4.pro>",
+    "bugs": {
+        "url": "https://github.com/design4pro/gatsby-starter-docs/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/design4pro/gatsby-starter-docs.git"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "src/**/*.(ts|tsx)": [
+            "npm run --silent lint:fix",
+            "git add"
+        ]
+    }
+}

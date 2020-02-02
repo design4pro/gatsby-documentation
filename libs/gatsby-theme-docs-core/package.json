@@ -1,0 +1,72 @@
+{
+  "name": "@design4pro/gatsby-theme-docs-core",
+  "version": "0.0.0",
+  "author": "Rafał Wolak <r.wolak@design4.pro>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/design4pro/gatsby-theme-docs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/design4pro/gatsby-theme-docs.git",
+    "directory": "libs/gatsby-theme-docs-core"
+  },
+  "homepage": "https://github.com/design4pro/gatsby-theme-docs/tree/master/libs/gatsby-theme-docs-core#readme",
+  "main": "index.js",
+  "scripts": {
+    "build": "gatsby build",
+    "clean": "gatsby clean",
+    "develop": "gatsby develop",
+    "serve": "gatsby serve",
+    "postpublish": "rm -rf dist/",
+    "test": "yarn build"
+  },
+  "peerDependencies": {
+    "gatsby": "^2.18.17",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "dependencies": {
+    "@mdx-js/loader": "^1.5.3",
+    "@mdx-js/mdx": "^1.5.3",
+    "@mdx-js/react": "^1.5.3",
+    "formik": "^2.1.4",
+    "gatsby-plugin-google-analytics": "^2.1.33",
+    "gatsby-plugin-layout": "^1.1.21",
+    "gatsby-plugin-local-search": "^1.1.0",
+    "gatsby-plugin-mdx": "^1.0.64",
+    "gatsby-plugin-react-helmet": "^3.0.12",
+    "gatsby-plugin-sharp": "^2.3.10",
+    "gatsby-plugin-typescript": "^2.1.17",
+    "gatsby-remark-autolink-headers": "^2.1.23",
+    "gatsby-remark-copy-linked-files": "^2.1.33",
+    "gatsby-remark-images": "^3.1.39",
+    "gatsby-remark-smartypants": "^2.1.19",
+    "gatsby-source-filesystem": "^2.1.43",
+    "gatsby-transformer-remark": "^2.6.45",
+    "gatsby-transformer-sharp": "^2.3.9",
+    "github-slugger": "^1.2.1",
+    "polished": "^3.4.2",
+    "prop-types": "^15.6.2",
+    "react-helmet": "^5.2.0",
+    "react-use": "^13.20.0",
+    "react-use-flexsearch": "^0.1.1",
+    "remark-slug": "^5.1.2",
+    "striptags": "^3.1.1"
+  },
+  "devDependencies": {
+    "@types/prop-types": "^15.5.2",
+    "@types/react": "^16.9.19",
+    "@types/react-helmet": "^5.0.15",
+    "gatsby": "^2.18.17",
+    "prettier": "^1.19.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "typescript": "~3.5.3"
+  },
+  "command": {
+    "publish": {
+      "conventionalCommits": true
+    }
+  }
+}
