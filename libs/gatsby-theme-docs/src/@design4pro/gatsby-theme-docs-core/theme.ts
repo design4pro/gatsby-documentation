@@ -1,4 +1,4 @@
-declare module '@material-ui/core' {
+declare module '@material-ui/styles' {
   interface Theme {
     palette: {
       divider: string;
@@ -15,7 +15,8 @@ export default (theme: string) => ({
     divider: theme === 'light' ? '#d4dadf' : 'rgba(255, 255, 255, 0.2)',
     background: {
       default: theme === 'light' ? '#FFF' : '#212121',
-      primary: theme === 'light' ? '#F5F7F9' : '#212121'
+      primary: theme === 'light' ? '#F5F7F9' : '#212121',
+      paper: theme === 'light' ? '#F5F7F9' : '#212121'
     },
     text: {
       primary: theme === 'light' ? '#242A31' : '#FFF',

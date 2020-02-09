@@ -1,9 +1,16 @@
+import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
 import { Field, Form, Formik } from 'formik';
 import { graphql, useStaticQuery } from 'gatsby';
 import React, { Fragment, KeyboardEvent, MouseEvent, useState } from 'react';
 import { useFlexSearch } from 'react-use-flexsearch';
+import { Link } from '../../ui';
 import useStyles from './styles';
 
 export const SearchBar = () => {
@@ -23,6 +30,7 @@ export const SearchBar = () => {
     `
   );
   const results = useFlexSearch(query, index, JSON.parse(store));
+  console.log({ results });
 
   const toggleDrawer = (open: boolean) => (
     event: KeyboardEvent | MouseEvent
@@ -40,22 +48,24 @@ export const SearchBar = () => {
 
   return (
     <Fragment>
-      <div className={classes.searchInputWrapper} onClick={toggleDrawer(true)}>
+      <div className={classes.inputWrapper} onClick={toggleDrawer(true)}>
         <div className={classes.inputContainer}>
           <label>
             <input type="text" name="query" placeholder="Search..." />
-            <i>
+            <button type="submit" className={'searchIcon'}>
               <SearchIcon />
-            </i>
+            </button>
           </label>
         </div>
       </div>
-      <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
+      <Drawer
+        className={classes.listDrawer}
+        anchor="right"
+        open={open}
+        onClose={toggleDrawer(false)}
+      >
         <div className={classes.list} role="presentation">
-          <div
-            className={classes.searchInputWrapper}
-            onClick={toggleDrawer(true)}
-          >
+          <div className={classes.listToolbar}>
             <Formik
               initialValues={{ query: '' }}
               onSubmit={(values, { setSubmitting }) => {
@@ -63,16 +73,76 @@ export const SearchBar = () => {
                 setSubmitting(false);
               }}
             >
-              <Form className={classes.inputContainer}>
-                <label>
-                  <Field type="text" name="query" placeholder="Search..." />
-                  <i>
-                    <SearchIcon />
-                  </i>
-                </label>
-              </Form>
+              {({ setFieldValue }) => {
+                return (
+                  <Form className={classes.inputContainer}>
+                    <label>
+                      <Field
+                        type="text"
+                        name="query"
+                        placeholder="Search..."
+                        innerRef={(input: React.HTMLElement<any>) =>
+                          input && input.focus()
+                        }
+                        onChange={(e: React.ChangeEvent<any>) => {
+                          setQuery(e.target.value);
+                          setFieldValue('query', e.target.value, false);
+                        }}
+                      />
+                      <button type="submit" className={'searchIcon'}>
+                        <SearchIcon />
+                      </button>
+                      <button
+                        type="reset"
+                        className={'clearIcon'}
+                        onClick={() => {
+                          setQuery('');
+                          setFieldValue('query', '', false);
+                        }}
+                      >
+                        <ClearIcon />
+                      </button>
+                      <button onClick={toggleDrawer(false)}>
+                        <ArrowForwardIcon />
+                      </button>
+                    </label>
+                  </Form>
+                );
+              }}
             </Formik>
           </div>
+          <List className={classes.resultList}>
+            {results.map(result => (
+              <Link
+                className={classes.resultLink}
+                key={result.id}
+                to={result.slug}
+              >
+                <ListItem
+                  className={classes.resultListItem}
+                  alignItems="flex-start"
+                >
+                  <ListItemText
+                    primary={result.title}
+                    secondary={
+                      <Fragment>
+                        {/* <Typography
+                          component="span"
+                          variant="body2"
+                          className={classes.resultInline}
+                          color="textPrimary"
+                        >
+                          to Scott, Alex, Jennifer
+                        </Typography>
+                        {" — Wish I could come, but I'm out of town this…"} */}
+                      </Fragment>
+                    }
+                  />
+                </ListItem>
+                <Divider component="li" />
+              </Link>
+            ))}
+          </List>
         </div>
       </Drawer>
     </Fragment>

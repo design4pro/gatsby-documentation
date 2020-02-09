@@ -1,8 +1,7 @@
-import { Theme } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, Theme } from '@material-ui/styles';
 
 export default makeStyles((theme: Theme) => ({
-  searchInputWrapper: {
+  inputWrapper: {
     ...theme.mixins.toolbar,
     margin: 0,
     display: 'flex',
@@ -23,6 +22,7 @@ export default makeStyles((theme: Theme) => ({
   inputContainer: {
     paddingLeft: 14,
     paddingRight: 16,
+    width: '100%',
     '& label': {
       width: '100%',
       border: 'none',
@@ -57,21 +57,61 @@ export default makeStyles((theme: Theme) => ({
           color: theme.palette.text.tertiary
         }
       },
-      '& i': {
+      '& button': {
         flex: '0 0 auto',
         color: '#242A31',
-        order: -1,
         margin: 0,
-        display: 'flex',
         padding: 0,
+        border: 0,
+        display: 'flex',
         alignItems: 'center',
         lineHeight: 1.2,
         whiteSpace: 'nowrap',
-        paddingLeft: 8
+        paddingLeft: 8,
+        cursor: 'pointer',
+        '&.searchIcon': {
+          order: -1
+        },
+        '&.clearIcon': {
+          color: theme.palette.text.tertiary,
+          '&:hover': {
+            color: theme.palette.text.quaternary
+          }
+        }
       }
+    }
+  },
+  listDrawer: {
+    '& .MuiDrawer-paper': {
+      backgroundColor: 'white'
     }
   },
   list: {
     width: 385
+  },
+  listToolbar: {
+    ...theme.mixins.toolbar,
+    display: 'flex',
+    alignItems: 'center',
+    borderBottom: `1px solid ${theme.palette.divider}`
+  },
+  resultList: {
+    width: '100%',
+    paddingTop: 0
+  },
+  resultLink: {
+    color: theme.palette.text.primary,
+    '&:hover': {
+      textDecoration: 'none'
+    }
+  },
+  resultListItem: {
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: theme.palette.background.paper
+    }
+  },
+  resultInline: {
+    display: 'inline'
   }
 }));

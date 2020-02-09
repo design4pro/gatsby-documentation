@@ -1,11 +1,20 @@
 import { Link as GatsbyLink } from 'gatsby';
+import { InferProps, node, string } from 'prop-types';
 import React, { forwardRef } from 'react';
 
-const ALink = ({ to, children, innerRef, ...other }) => (
-  <a href={to} ref={innerRef} {...other}>
-    {children}
-  </a>
-);
+const ALink = (props: InferProps<typeof ALink.propTypes>) => {
+  const { to, children, innerRef, ...other } = props;
+  return (
+    <a href={to} ref={innerRef} {...other}>
+      {children}
+    </a>
+  );
+};
+
+ALink.propTypes = {
+  to: string,
+  children: node
+};
 
 const Link = forwardRef(
   ({ to, activeClassName, partiallyActive, ...other }, ref) => {
@@ -16,7 +25,7 @@ const Link = forwardRef(
       const file = /\.[0-9a-z]+$/i.test(to);
 
       if (file) {
-        return <ALink href={to} innerRef={ref} {...other} />;
+        return <ALink to={to} innerRef={ref} {...other} />;
       }
 
       return (
@@ -30,7 +39,7 @@ const Link = forwardRef(
       );
     }
 
-    return <ALink href={to} innerRef={ref} {...other} />;
+    return <ALink to={to} innerRef={ref} {...other} />;
   }
 );
 
