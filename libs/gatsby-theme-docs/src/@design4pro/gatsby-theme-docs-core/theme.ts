@@ -2,6 +2,11 @@ declare module '@material-ui/styles' {
   interface Theme {
     palette: {
       divider: string;
+      border: {
+        primary: string;
+        primaryHover: string;
+        secondary: string;
+      };
     };
   }
 }
@@ -17,6 +22,11 @@ export default (theme: string) => ({
       default: theme === 'light' ? '#FFF' : '#212121',
       primary: theme === 'light' ? '#F5F7F9' : '#212121',
       paper: theme === 'light' ? '#F5F7F9' : '#212121'
+    },
+    border: {
+      primary: theme === 'light' ? '#d4dadf' : 'rgba(255, 255, 255, 0.2)',
+      primaryHover: theme === 'light' ? '#242A31' : '#FFF',
+      secondary: theme === 'light' ? '#E6ECF1' : 'rgba(255,255,255,0.2)'
     },
     text: {
       primary: theme === 'light' ? '#242A31' : '#FFF',
@@ -54,6 +64,11 @@ export default (theme: string) => ({
         borderRight: `1px solid`,
         borderRightColor:
           theme === 'light' ? '#E6ECF1' : 'rgba(255,255,255,0.2)'
+      }
+    },
+    MuiCard: {
+      root: {
+        backgroundColor: theme === 'light' ? '#FFFFFF' : '#212121'
       }
     }
   },

@@ -1,5 +1,4 @@
-import { Theme } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, Theme } from '@material-ui/styles';
 
 export default makeStyles((theme: Theme) => ({
   container: {
@@ -10,7 +9,17 @@ export default makeStyles((theme: Theme) => ({
   mainContent: {
     flexGrow: 1,
     width: 0,
-    maxWidth: 750
+    marginRight: 24
+  },
+  contentFooter: {
+    paddingTop: 64
+  },
+  contentFooterData: {
+    borderTop: `2px solid ${theme.palette.border.primary}`,
+    paddingTop: 24,
+    marginTop: 24,
+    fontSize: 10,
+    color: theme.palette.text.tertiary
   },
   aside: {
     display: 'flex',

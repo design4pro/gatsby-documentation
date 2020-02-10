@@ -30,7 +30,6 @@ export const SearchBar = () => {
     `
   );
   const results = useFlexSearch(query, index, JSON.parse(store));
-  console.log({ results });
 
   const toggleDrawer = (open: boolean) => (
     event: KeyboardEvent | MouseEvent
@@ -73,7 +72,7 @@ export const SearchBar = () => {
                 setSubmitting(false);
               }}
             >
-              {({ setFieldValue }) => {
+              {({ values, setFieldValue }) => {
                 return (
                   <Form className={classes.inputContainer}>
                     <label>
@@ -92,16 +91,18 @@ export const SearchBar = () => {
                       <button type="submit" className={'searchIcon'}>
                         <SearchIcon />
                       </button>
-                      <button
-                        type="reset"
-                        className={'clearIcon'}
-                        onClick={() => {
-                          setQuery('');
-                          setFieldValue('query', '', false);
-                        }}
-                      >
-                        <ClearIcon />
-                      </button>
+                      {values.query ? (
+                        <button
+                          type="reset"
+                          className={'clearIcon'}
+                          onClick={() => {
+                            setQuery('');
+                            setFieldValue('query', '', false);
+                          }}
+                        >
+                          <ClearIcon />
+                        </button>
+                      ) : null}
                       <button onClick={toggleDrawer(false)}>
                         <ArrowForwardIcon />
                       </button>

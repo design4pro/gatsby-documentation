@@ -2,11 +2,13 @@ import Typography from '@material-ui/core/Typography';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { InferProps, node, object } from 'prop-types';
 import React, { Fragment, useRef } from 'react';
+import TimeAgo from 'react-timeago';
 import useMount from 'react-use/lib/useMount';
 import CollapseOnScroll from '../ui/CollapseOnScroll';
 import useGlobalStyles from '../ui/global.styles';
 import Link from '../ui/Link';
 import ContentHeader from './content-header';
+import ContentNav from './content-nav/ContentNav';
 import SectionNav from './section-nav';
 import useStyles from './styles';
 
@@ -47,13 +49,16 @@ const Content = (props: InferProps<typeof Content.propTypes>) => {
       <main className={classes.mainContent}>
         <div className={globalClasses.toolbarOffset}></div>
         <ContentHeader {...mdx} />
-        <hr />
         <div ref={contentRef}>
           <h1>{mdx.title}</h1>
 
           <div>{children}</div>
-          <div>{/* <NextPrevious docsPage={mdx} /> */}</div>
-          <pre>{JSON.stringify(props.data, null, 2)}</pre>
+          <div className={classes.contentFooter}>
+            <ContentNav {...props} />
+          </div>
+          <div className={classes.contentFooterData}>
+            Last updated <TimeAgo date={mdx.fields.gitModifiedTime} />
+          </div>
         </div>
       </main>
       <aside className={classes.aside}>

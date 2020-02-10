@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
+const { execSync } = require('child_process');
 const Debug = require('debug');
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
@@ -63,6 +64,10 @@ exports.onCreateNode = ({ node, actions, getNode }, themeOptions) => {
       slug = getVersionBasePath(version) + slug;
     }
 
+    const gitModifiedTime = execSync(
+      `git log -1 --pretty=format:%aI ${node.fileAbsolutePath}`
+    ).toString();
+
     createNodeField({
       name: 'version',
       node,
@@ -91,6 +96,12 @@ exports.onCreateNode = ({ node, actions, getNode }, themeOptions) => {
       name: 'sidebarTitle',
       node,
       value: node.frontmatter.sidebarTitle || ''
+    });
+
+    createNodeField({
+      node,
+      name: 'gitModifiedTime',
+      value: gitModifiedTime
     });
   }
 };

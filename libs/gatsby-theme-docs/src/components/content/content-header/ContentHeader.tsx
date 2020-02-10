@@ -11,7 +11,7 @@ export const ContentHeader = (
   const classes = useStyles();
 
   return (
-    <div className="header-wrapper">
+    <div className={classes.root}>
       <h1 className={classes.heading}>{title}</h1>
       {description && <h3>{description}</h3>}
     </div>
