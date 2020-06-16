@@ -11,19 +11,19 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "config": "libs/gatsby/.eslintrc",
             "tsConfig": [
               "libs/gatsby/tsconfig.lib.json",
               "libs/gatsby/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/gatsby/**"]
+            "exclude": ["**/node_modules/**", "!libs/gatsby/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/gatsby/jest.config.js",
-            "tsConfig": "libs/gatsby/tsconfig.spec.json"
+            "tsConfig": "libs/gatsby/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         },
         "build": {
@@ -82,19 +82,22 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "config": "libs/gatsby-theme-docs-core/.eslintrc",
             "tsConfig": [
               "libs/gatsby-theme-docs-core/tsconfig.lib.json",
               "libs/gatsby-theme-docs-core/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/gatsby-theme-docs-core/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/gatsby-theme-docs-core/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/gatsby-theme-docs-core/jest.config.js",
-            "tsConfig": "libs/gatsby-theme-docs-core/tsconfig.spec.json"
+            "tsConfig": "libs/gatsby-theme-docs-core/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         },
         "build": {
@@ -119,19 +122,19 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "config": "libs/gatsby-theme-docs/.eslintrc",
             "tsConfig": [
               "libs/gatsby-theme-docs/tsconfig.lib.json",
               "libs/gatsby-theme-docs/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/gatsby-theme-docs/**"]
+            "exclude": ["**/node_modules/**", "!libs/gatsby-theme-docs/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/gatsby-theme-docs/jest.config.js",
-            "tsConfig": "libs/gatsby-theme-docs/tsconfig.spec.json"
+            "tsConfig": "libs/gatsby-theme-docs/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         },
         "build": {
