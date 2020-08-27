@@ -6,17 +6,17 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
-    "tsconfig.json": "*",
     "tslint.json": "*",
-    "nx.json": "*"
+    "nx.json": "*",
+    "tsconfig.base.json": "*"
   },
   "projects": {
-    "gatsby": {
+    "gatsby-starter-docs": {
       "tags": []
     },
-    "gatsby-e2e": {
+    "gatsby-starter-docs-e2e": {
       "tags": [],
-      "implicitDependencies": ["gatsby"]
+      "implicitDependencies": ["gatsby-starter-docs"]
     },
     "gatsby-theme-docs-core": {
       "tags": []
@@ -32,5 +32,8 @@
         "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     }
+  },
+  "affected": {
+    "defaultBase": "master"
   }
 }

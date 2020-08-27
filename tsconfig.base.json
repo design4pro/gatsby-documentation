@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "jsx": "react",
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@design4pro/gatsby-theme-docs-core": [
+        "libs/gatsby-theme-docs-core/src/index.ts"
+      ],
+      "@design4pro/gatsby-theme-docs": ["libs/gatsby-theme-docs/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "libs/**/node_modules", "tmp", "public", ".cache"]
+}

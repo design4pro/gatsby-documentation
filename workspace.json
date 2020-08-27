@@ -1,73 +1,82 @@
 {
   "version": 1,
   "projects": {
-    "gatsby": {
-      "root": "libs/gatsby",
-      "sourceRoot": "libs/gatsby/src",
-      "projectType": "library",
+    "gatsby-starter-docs": {
+      "root": "apps/gatsby-starter-docs",
+      "sourceRoot": "apps/gatsby-starter-docs/src",
+      "projectType": "application",
       "schematics": {},
       "architect": {
+        "build": {
+          "builder": "@nrwl/gatsby:build",
+          "options": {
+            "outputPath": "apps/gatsby-starter-docs/public",
+            "uglify": true,
+            "color": true,
+            "profile": false
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/gatsby:server",
+          "options": {
+            "buildTarget": "gatsby-starter-docs:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "gatsby-starter-docs:build:production"
+            }
+          }
+        },
         "lint": {
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
             "tsConfig": [
-              "libs/gatsby/tsconfig.lib.json",
-              "libs/gatsby/tsconfig.spec.json"
+              "apps/gatsby-starter-docs/tsconfig.json",
+              "apps/gatsby-starter-docs/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/gatsby/**/*"]
+            "exclude": ["**/node_modules/**", "!apps/gatsby-starter-docs/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/gatsby/jest.config.js",
-            "tsConfig": "libs/gatsby/tsconfig.spec.json",
+            "jestConfig": "apps/gatsby-starter-docs/jest.config.js",
+            "tsConfig": "apps/gatsby-starter-docs/tsconfig.spec.json",
             "passWithNoTests": true
-          }
-        },
-        "build": {
-          "builder": "@nrwl/node:package",
-          "options": {
-            "outputPath": "dist/libs/gatsby",
-            "tsConfig": "libs/gatsby/tsconfig.lib.json",
-            "packageJson": "libs/gatsby/package.json",
-            "main": "libs/gatsby/src/index.ts",
-            "assets": [
-              "libs/gatsby/*.md",
-              {
-                "input": "./libs/gatsby/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./libs/gatsby",
-                "glob": "collection.json",
-                "output": "."
-              },
-              {
-                "input": "./libs/gatsby",
-                "glob": "builders.json",
-                "output": "."
-              }
-            ]
           }
         }
       }
     },
-    "gatsby-e2e": {
+    "gatsby-starter-docs-e2e": {
+      "root": "apps/gatsby-starter-docs-e2e",
+      "sourceRoot": "apps/gatsby-starter-docs-e2e/src",
       "projectType": "application",
-      "root": "apps/gatsby-e2e",
-      "sourceRoot": "apps/gatsby-e2e/src",
       "architect": {
         "e2e": {
-          "builder": "@nrwl/nx-plugin:e2e",
+          "builder": "@nrwl/cypress:cypress",
           "options": {
-            "target": "gatsby:build",
-            "npmPackageName": "@gatsby-theme-docs/gatsby",
-            "pluginOutputPath": "dist/libs/gatsby",
-            "jestConfig": "apps/gatsby-e2e/jest.config.js",
-            "tsSpecConfig": "apps/gatsby-e2e/tsconfig.spec.json"
+            "cypressConfig": "apps/gatsby-starter-docs-e2e/cypress.json",
+            "tsConfig": "apps/gatsby-starter-docs-e2e/tsconfig.e2e.json",
+            "devServerTarget": "gatsby-starter-docs:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "gatsby-starter-docs:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/gatsby-starter-docs-e2e/tsconfig.e2e.json"],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/gatsby-starter-docs-e2e/**/*"
+            ]
           }
         }
       }
@@ -92,22 +101,31 @@
             ]
           }
         },
+        "build": {
+          "builder": "@nrwl/web:package",
+          "options": {
+            "outputPath": "dist/libs/gatsby-theme-docs-core",
+            "tsConfig": "libs/gatsby-theme-docs-core/tsconfig.lib.json",
+            "project": "libs/gatsby-theme-docs-core/package.json",
+            "entryFile": "libs/gatsby-theme-docs-core/src/index.ts",
+            "external": ["react", "react-dom"],
+            "babelConfig": "@nrwl/react/plugins/bundle-babel",
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/gatsby-theme-docs-core/jest.config.js",
             "tsConfig": "libs/gatsby-theme-docs-core/tsconfig.spec.json",
             "passWithNoTests": true
-          }
-        },
-        "build": {
-          "builder": "@nrwl/node:package",
-          "options": {
-            "outputPath": "dist/libs/gatsby-theme-docs-core",
-            "tsConfig": "libs/gatsby-theme-docs-core/tsconfig.lib.json",
-            "packageJson": "libs/gatsby-theme-docs-core/package.json",
-            "main": "libs/gatsby-theme-docs-core/src/index.ts",
-            "assets": ["libs/gatsby-theme-docs-core/*.md"]
           }
         }
       }
@@ -129,6 +147,25 @@
             "exclude": ["**/node_modules/**", "!libs/gatsby-theme-docs/**/*"]
           }
         },
+        "build": {
+          "builder": "@nrwl/web:package",
+          "options": {
+            "outputPath": "dist/libs/gatsby-theme-docs",
+            "tsConfig": "libs/gatsby-theme-docs/tsconfig.lib.json",
+            "project": "libs/gatsby-theme-docs/package.json",
+            "entryFile": "libs/gatsby-theme-docs/src/index.ts",
+            "external": ["react", "react-dom"],
+            "babelConfig": "@nrwl/react/plugins/bundle-babel",
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -136,74 +173,17 @@
             "tsConfig": "libs/gatsby-theme-docs/tsconfig.spec.json",
             "passWithNoTests": true
           }
-        },
-        "build": {
-          "builder": "@nrwl/node:package",
-          "options": {
-            "outputPath": "dist/libs/gatsby-theme-docs",
-            "tsConfig": "libs/gatsby-theme-docs/tsconfig.lib.json",
-            "packageJson": "libs/gatsby-theme-docs/package.json",
-            "main": "libs/gatsby-theme-docs/src/index.ts",
-            "assets": ["libs/gatsby-theme-docs/*.md"]
-          }
         }
       }
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
+    "defaultCollection": "@nrwl/gatsby"
   },
   "schematics": {
-    "@nrwl/workspace": {
-      "library": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/cypress": {
-      "cypress-project": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/react": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/next": {
-      "application": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/web": {
-      "application": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/node": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/nx-plugin": {
-      "plugin": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/nest": {
-      "application": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/express": {
-      "application": {
-        "linter": "eslint"
-      }
+    "@nrwl/gatsby": {
+      "application": {}
     }
-  }
+  },
+  "defaultProject": "gatsby-starter-docs"
 }
