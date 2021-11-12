@@ -174,12 +174,14 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
     let versionDifference = 0;
     if (defaultVersionNumber) {
       try {
-        const versionNumber = parseFloat(fields.version, 10);
+        const versionNumber = parseFloat(node.fields.version, 10);
         versionDifference = versionNumber - defaultVersionNumber;
       } catch (error) {
         // do nothing
       }
     }
+
+    console.log(node)
 
     createPage({
       path: node.fields.slug ? node.fields.slug : '/',

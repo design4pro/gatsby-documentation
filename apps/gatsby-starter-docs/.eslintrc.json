@@ -1,0 +1,29 @@
+{
+    "rules": {
+        "no-unused-expressions": [
+            "error",
+            {
+                "allowShortCircuit": true,
+                "allowTernary": true,
+                "allowTaggedTemplates": true
+            }
+        ],
+        "@typescript-eslint/camelcase": "off"
+    },
+    "extends": ["plugin:@nrwl/nx/react", "../../.eslintrc"],
+    "ignorePatterns": ["!**/*", "public"],
+    "overrides": [
+        {
+            "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+            "rules": {}
+        },
+        {
+            "files": ["*.ts", "*.tsx"],
+            "rules": {}
+        },
+        {
+            "files": ["*.js", "*.jsx"],
+            "rules": {}
+        }
+    ]
+}

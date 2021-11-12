@@ -29,7 +29,7 @@ export const SearchBar = () => {
       }
     `
   );
-  const results = useFlexSearch(query, index, JSON.parse(store));
+  const results = useFlexSearch(query, index, store);
 
   const toggleDrawer = (open: boolean) => (
     event: KeyboardEvent | MouseEvent

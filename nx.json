@@ -8,22 +8,8 @@
     },
     "tslint.json": "*",
     "nx.json": "*",
-    "tsconfig.base.json": "*"
-  },
-  "projects": {
-    "gatsby-starter-docs": {
-      "tags": []
-    },
-    "gatsby-starter-docs-e2e": {
-      "tags": [],
-      "implicitDependencies": ["gatsby-starter-docs"]
-    },
-    "gatsby-theme-docs-core": {
-      "tags": []
-    },
-    "gatsby-theme-docs": {
-      "tags": []
-    }
+    "tsconfig.base.json": "*",
+    ".eslintrc.json": "*"
   },
   "tasksRunnerOptions": {
     "default": {
@@ -35,5 +21,22 @@
   },
   "affected": {
     "defaultBase": "master"
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/gatsby"
+  },
+  "defaultProject": "gatsby-starter-docs",
+  "generators": {
+    "@nrwl/gatsby": {
+      "application": {}
+    }
   }
 }

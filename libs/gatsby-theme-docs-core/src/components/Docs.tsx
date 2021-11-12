@@ -3,8 +3,6 @@ import React, { Fragment } from 'react';
 import Viewport from './Viewport';
 
 export const Docs = ({ children }: InferProps<typeof Docs.propTypes>) => {
-  console.log('gatsby-theme-docs-core->Docs');
-
   return (
     <Fragment>
       <Viewport />
