@@ -1,14 +1,18 @@
-import { makeStyles, Theme } from '@material-ui/styles';
+import { styled } from '@mui/material/styles';
 
-export default makeStyles((theme: Theme) => ({
-  root: {
+const PREFIX = 'Header';
+export const classes = {
+  root: `${PREFIX}-root`,
+};
+
+export const Root = styled('div')(({ theme }) => ({
+  [`&.${classes.root}`]: {
     display: 'block',
     flexGrow: 1,
     paddingLeft: 24,
     marginTop: 32,
     overflowX: 'hidden',
     overflowY: 'overlay',
-    '-webkit-overflow-scrolling': 'touch',
     '& .item': {
       '& a, & .catalog': {
         color: 'inherit',
@@ -21,14 +25,14 @@ export default makeStyles((theme: Theme) => ({
         borderRight: 0,
         textDecoration: 'none',
         fontWeight: 500,
-        lineHeight: 1.75
+        lineHeight: 1.75,
       },
       '& a': {
         '&:hover': {
-          backgroundColor: theme.palette.action.background
+          backgroundColor: theme.palette.action.background,
         },
         '& .label': {
-          flex: 1
+          flex: 1,
         },
         '& .collapser': {
           display: 'block',
@@ -39,27 +43,27 @@ export default makeStyles((theme: Theme) => ({
           fontSize: 18,
           color: theme.palette.text.tertiary,
           '&:hover': {
-            color: theme.palette.text.quaternary
-          }
-        }
+            color: theme.palette.text.quaternary,
+          },
+        },
       },
       '&.active > a': {
-        backgroundColor: 'white',
+        backgroundColor: theme.palette.action.background,
         borderColor: theme.palette.action.background,
-        color: `${theme.palette.action.active} !important`,
+        color: theme.palette.action.active,
         '&:hover': {
-          backgroundColor: 'white'
-        }
+          backgroundColor: theme.palette.action.background,
+        },
       },
       '&.firstLevel': {
-        marginBottom: 24
+        marginBottom: 24,
       },
       '& .catalog': {
         textTransform: 'uppercase',
         fontWeight: 700,
         fontSize: 12,
         letterSpacing: 1.2,
-        color: theme.palette.text.tertiary
+        color: theme.palette.text.tertiary,
       },
       '&:not(.catalog) .hasChildren': {
         position: 'relative',
@@ -71,12 +75,12 @@ export default makeStyles((theme: Theme) => ({
           bottom: 0,
           content: '""',
           position: 'absolute',
-          background: theme.palette.action.background
+          background: theme.palette.action.background,
         },
         '& a': {
-          color: theme.palette.text.tertiary
-        }
-      }
-    }
-  }
+          color: theme.palette.text.tertiary,
+        },
+      },
+    },
+  },
 }));

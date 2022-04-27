@@ -1,6 +1,6 @@
 const withDefaults = require(`./utils/default-options`);
 
-module.exports = themeOptions => {
+module.exports = (themeOptions) => {
   const options = withDefaults(themeOptions);
 
   const gatsbyRemarkPlugins = [
@@ -8,13 +8,12 @@ module.exports = themeOptions => {
     {
       resolve: `gatsby-remark-images`,
       options: {
-        // should this be configurable by the end-user?
         maxWidth: 1380,
-        linkImagesToOriginal: false
-      }
+        linkImagesToOriginal: false,
+      },
     },
     `gatsby-remark-copy-linked-files`,
-    `gatsby-remark-smartypants`
+    `gatsby-remark-smartypants`,
   ];
 
   return {
@@ -27,48 +26,49 @@ module.exports = themeOptions => {
       social: [
         {
           name: `Twitter`,
-          url: `https://twitter.com/design4pro`
+          url: `https://twitter.com/design4pro`,
         },
         {
           name: `GitHub`,
-          url: `https://github.com/design4pro`
-        }
+          url: `https://github.com/design4pro`,
+        },
       ],
       header: {
         title: `Gatsby Documentation`,
-        links: [{ text: 'Home', link: '/' }]
+        links: [{ text: 'Home', link: '/' }],
       },
       sidebar: {
-        ignoreIndex: false
-      }
+        ignoreIndex: false,
+      },
+      options,
     },
     plugins: [
       {
         resolve: `gatsby-source-filesystem`,
         options: {
           path: options.contentPath || `content`,
-          name: options.contentPath || `content`
-        }
+          name: options.contentPath || `content`,
+        },
       },
       {
         resolve: `gatsby-source-filesystem`,
         options: {
           path: options.assetPath || `static/assets`,
-          name: options.assetPath || `static/assets`
-        }
+          name: options.assetPath || `static/assets`,
+        },
       },
       {
         resolve: 'gatsby-transformer-remark',
         options: {
-          plugins: gatsbyRemarkPlugins
-        } 
+          plugins: gatsbyRemarkPlugins,
+        },
       },
       {
         resolve: `gatsby-plugin-mdx`,
         options: {
           extensions: [`.mdx`, `.md`],
-          gatsbyRemarkPlugins: gatsbyRemarkPlugins
-        }
+          gatsbyRemarkPlugins: gatsbyRemarkPlugins,
+        },
       },
       `gatsby-plugin-react-helmet`,
       `gatsby-transformer-sharp`,
@@ -82,8 +82,8 @@ module.exports = themeOptions => {
           background_color: `#ffffff`,
           theme_color: `#663399`,
           display: `minimal-ui`,
-          icon: `static/assets/gatsby-icon.png`
-        }
+          icon: `static/assets/gatsby-icon.png`,
+        },
       },
       `gatsby-plugin-offline`,
       // Add typescript stack into webpack
@@ -141,14 +141,14 @@ module.exports = themeOptions => {
           // containing properties to index. The objects must contain the `ref`
           // field above (default: 'id'). This is required.
           normalizer: ({ data }) =>
-            data.allMdx.nodes.map(node => ({
+            data.allMdx.nodes.map((node) => ({
               id: node.id,
               slug: node.fields.slug,
               title: node.fields.title,
-              body: node.rawBody
-            }))
-        }
-      }
-    ].filter(Boolean)
+              body: node.rawBody,
+            })),
+        },
+      },
+    ].filter(Boolean),
   };
 };

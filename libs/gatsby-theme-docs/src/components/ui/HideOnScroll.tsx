@@ -1,5 +1,5 @@
-import Slide from '@material-ui/core/Slide';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Slide from '@mui/material/Slide';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
 import { bool, InferProps, node, number } from 'prop-types';
 import React from 'react';
 
@@ -10,7 +10,7 @@ export const HideOnScroll = (
 
   const trigger = useScrollTrigger({
     disableHysteresis,
-    threshold
+    threshold,
   });
 
   return (
@@ -24,7 +24,7 @@ HideOnScroll.propTypes = {
   children: node,
   revert: bool,
   disableHysteresis: bool,
-  threshold: number
+  threshold: number,
 };
 
 export default HideOnScroll;

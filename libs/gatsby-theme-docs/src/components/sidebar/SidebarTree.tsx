@@ -2,13 +2,13 @@ import config from '@design4pro/gatsby-theme-docs-core/src/config';
 import React, { Fragment, useState } from 'react';
 import SidebarTreeNode from './SidebarTreeNode';
 
-const calculateTreeData = edges => {
+const calculateTreeData = (edges) => {
   const originalData = config.siteMetadata.sidebar.ignoreIndex
     ? edges.filter(
         ({
           node: {
-            fields: { slug }
-          }
+            fields: { slug },
+          },
         }) => slug !== '/'
       )
     : edges;
@@ -21,8 +21,8 @@ const calculateTreeData = edges => {
         {
           node: {
             fields: { slug, title },
-            frontmatter: { navPosition, sidebarTitle }
-          }
+            frontmatter: { navPosition, sidebarTitle },
+          },
         }
       ) => {
         const parts = slug.split('/');
@@ -41,7 +41,7 @@ const calculateTreeData = edges => {
               label: part,
               title: sidebarTitle || title,
               items: [],
-              position: navPosition || 100
+              position: navPosition || 100,
             };
 
             prevItems.push(tmp);
@@ -58,7 +58,7 @@ const calculateTreeData = edges => {
             label: parts[parts.length - 1],
             title: sidebarTitle || title,
             items: [],
-            position: navPosition || 100
+            position: navPosition || 100,
           });
         }
 
@@ -72,11 +72,11 @@ const calculateTreeData = edges => {
   return tree;
 };
 
-export const SidebarTree = props => {
+export const SidebarTree = (props) => {
   const { edges } = props;
   const [treeData] = useState(() => calculateTreeData(edges));
   const defaultCollapsed = {};
-  treeData.items.forEach(item => {
+  treeData.items.forEach((item) => {
     if (
       config.siteMetadata.sidebar.collapsedNav &&
       config.siteMetadata.sidebar.collapsedNav.includes(item.url)
@@ -91,13 +91,13 @@ export const SidebarTree = props => {
   const toggle = (url: string) => {
     setCollapsed({
       ...collapsed,
-      [url]: !collapsed[url]
+      [url]: !collapsed[url],
     });
   };
 
   return (
     <Fragment>
-      {treeData.items.map(item => (
+      {treeData.items.map((item) => (
         <SidebarTreeNode
           className={`firstLevel`}
           key={item.url}

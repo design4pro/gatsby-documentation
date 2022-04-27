@@ -13,9 +13,9 @@ function getVersionBasePath(version) {
 }
 
 function getVersionEdges(edges, version) {
-  return edges.filter(edge => {
+  return edges.filter((edge) => {
     const {
-      node: { fields }
+      node: { fields },
     } = edge;
 
     return fields.version === version && !fields.hideInSidebar;
@@ -29,10 +29,10 @@ exports.onPreBootstrap = ({ store }, themeOptions) => {
 
   const dirs = [
     path.join(program.directory, contentPath),
-    path.join(program.directory, assetPath)
+    path.join(program.directory, assetPath),
   ];
 
-  dirs.forEach(dir => {
+  dirs.forEach((dir) => {
     debug(`Initializing ${dir} directory`);
 
     if (!fs.existsSync(dir)) {
@@ -57,7 +57,7 @@ exports.onCreateNode = ({ node, actions, getNode }, themeOptions) => {
     if (parent.gitRemote___NODE) {
       const gitRemote = getNode(parent.gitRemote___NODE);
       version = gitRemote.sourceInstanceName;
-      slug = slug.replace(`/^\/${contentPath}/`, '');
+      slug = slug.replace(`/^/${contentPath}/`, '');
     }
 
     if (version !== defaultVersion) {
@@ -71,37 +71,37 @@ exports.onCreateNode = ({ node, actions, getNode }, themeOptions) => {
     createNodeField({
       name: 'version',
       node,
-      value: version
+      value: version,
     });
 
     createNodeField({
       name: 'slug',
       node,
-      value: slug
+      value: slug,
     });
 
     createNodeField({
       name: 'id',
       node,
-      value: node.id
+      value: node.id,
     });
 
     createNodeField({
       name: 'title',
       node,
-      value: node.frontmatter.title
+      value: node.frontmatter.title,
     });
 
     createNodeField({
       name: 'sidebarTitle',
       node,
-      value: node.frontmatter.sidebarTitle || ''
+      value: node.frontmatter.sidebarTitle || '',
     });
 
     createNodeField({
       node,
       name: 'gitModifiedTime',
-      value: gitModifiedTime
+      value: gitModifiedTime,
     });
   }
 };
@@ -115,7 +115,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
 
   const { data, errors } = await graphql(`
     {
-      allMdx {
+      allMdx(sort: { fields: frontmatter___navPosition }) {
         edges {
           node {
             id
@@ -134,6 +134,18 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
             }
             tableOfContents
           }
+          previous {
+            fields {
+              slug
+              title
+            }
+          }
+          next {
+            fields {
+              slug
+              title
+            }
+          }
         }
       }
     }
@@ -147,7 +159,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
 
   const mainVersion = localVersion || defaultVersion;
   const versionEdges = {
-    [mainVersion]: getVersionEdges(edges, mainVersion)
+    [mainVersion]: getVersionEdges(edges, mainVersion),
   };
 
   const versionKeys = [localVersion].filter(Boolean);
@@ -167,10 +179,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   }
 
   // Create a page for each Doc page
-  edges.forEach(({ node }, index) => {
-    const previous = index === edges.length - 1 ? null : edges[index + 1];
-    const next = index === 0 ? null : edges[index - 1];
-
+  edges.forEach(({ node, previous, next }) => {
     let versionDifference = 0;
     if (defaultVersionNumber) {
       try {
@@ -181,7 +190,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
       }
     }
 
-    console.log(node)
+    console.log(node);
 
     createPage({
       path: node.fields.slug ? node.fields.slug : '/',
@@ -194,8 +203,8 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
         defaultVersion,
         layout: `index`,
         previous,
-        next
-      }
+        next,
+      },
     });
   });
 };

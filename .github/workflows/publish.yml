@@ -19,7 +19,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_EMAIL: ${{ secrets.GITHUB_EMAIL }}
         with:
-          args: example design4pro
+          args: apps design4pro gatsby-starter-docs
       - name: publish:themes
         uses: johno/actions-yarn@master
         env:

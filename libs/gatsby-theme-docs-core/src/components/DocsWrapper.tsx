@@ -4,7 +4,7 @@ import { DocsLayout } from './DocsLayout';
 import Viewport from './Viewport';
 
 export const DocsWrapper = ({
-  children
+  children,
 }: InferProps<typeof DocsWrapper.propTypes>) => {
   return (
     <Fragment>
@@ -15,7 +15,7 @@ export const DocsWrapper = ({
 };
 
 DocsWrapper.propTypes = {
-  children: node
+  children: node,
 };
 
 export default DocsWrapper;

@@ -1,24 +1,24 @@
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import ClearIcon from '@material-ui/icons/Clear';
-import SearchIcon from '@material-ui/icons/Search';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ClearIcon from '@mui/icons-material/Clear';
+import SearchIcon from '@mui/icons-material/Search';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import { Field, Form, Formik } from 'formik';
 import { graphql, useStaticQuery } from 'gatsby';
-import React, { Fragment, KeyboardEvent, MouseEvent, useState } from 'react';
+import React from 'react';
+import { Fragment, KeyboardEvent, MouseEvent, useState } from 'react';
 import { useFlexSearch } from 'react-use-flexsearch';
 import { Link } from '../../ui';
-import useStyles from './styles';
+import { classes, Root } from './styles';
 
 export const SearchBar = () => {
-  const classes = useStyles();
   const [query, setQuery] = useState(null);
   const [open, setOpen] = useState(false);
   const {
-    localSearchPages: { index, store }
+    localSearchPages: { index, store },
   } = useStaticQuery(
     graphql`
       query SearchQuery {
@@ -46,7 +46,7 @@ export const SearchBar = () => {
   };
 
   return (
-    <Fragment>
+    <Root>
       <div className={classes.inputWrapper} onClick={toggleDrawer(true)}>
         <div className={classes.inputContainer}>
           <label>
@@ -113,7 +113,7 @@ export const SearchBar = () => {
             </Formik>
           </div>
           <List className={classes.resultList}>
-            {results.map(result => (
+            {results.map((result) => (
               <Link
                 className={classes.resultLink}
                 key={result.id}
@@ -146,7 +146,7 @@ export const SearchBar = () => {
           </List>
         </div>
       </Drawer>
-    </Fragment>
+    </Root>
   );
 };
 

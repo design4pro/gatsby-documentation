@@ -1,8 +1,8 @@
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import Brightness4 from '@material-ui/icons/Brightness4';
-import Brightness7 from '@material-ui/icons/Brightness7';
-import BrightnessAuto from '@material-ui/icons/BrightnessAuto';
+import Brightness4 from '@mui/icons-material/Brightness4';
+import Brightness7 from '@mui/icons-material/Brightness7';
+import BrightnessAuto from '@mui/icons-material/BrightnessAuto';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 import React, { Fragment, useCallback, useEffect } from 'react';
 import { useTheme } from '../../hooks/use-theme';
 import { onBrowserThemeChanged } from '../../utils/browser-theme';
@@ -11,7 +11,7 @@ export const SwitchTheme = () => {
   const [theme, setTheme] = useTheme();
 
   const updateTheme = useCallback(
-    newTheme => {
+    (newTheme) => {
       setTheme(newTheme);
     },
     [setTheme]

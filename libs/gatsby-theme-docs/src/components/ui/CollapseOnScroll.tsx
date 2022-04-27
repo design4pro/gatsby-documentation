@@ -1,5 +1,5 @@
-import Collapse from '@material-ui/core/Collapse';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Collapse from '@mui/material/Collapse';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
 import { bool, InferProps, node, number } from 'prop-types';
 import React from 'react';
 
@@ -10,7 +10,7 @@ export const CollapseOnScroll = (
 
   const trigger = useScrollTrigger({
     disableHysteresis,
-    threshold
+    threshold,
   });
 
   return <Collapse in={revert ? trigger : !trigger}>{children}</Collapse>;
@@ -20,7 +20,7 @@ CollapseOnScroll.propTypes = {
   children: node,
   revert: bool,
   disableHysteresis: bool,
-  threshold: number
+  threshold: number,
 };
 
 export default CollapseOnScroll;

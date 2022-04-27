@@ -1,13 +1,19 @@
-import { makeStyles, Theme } from '@material-ui/styles';
+import { styled } from '@mui/material/styles';
 
-export default makeStyles((theme: Theme) => ({
-  root: {
+const PREFIX = 'ContentHeader';
+export const classes = {
+  root: `${PREFIX}-root`,
+  heading: `${PREFIX}-heading`,
+};
+
+export const Root = styled('div')(({ theme }) => ({
+  [`&.${classes.root}`]: {
     borderBottom: `1px solid ${theme.palette.border.primary}`,
-    marginBottom: 24
+    marginBottom: 24,
   },
-  heading: {
+  [`& .${classes.heading}`]: {
     '&:not(:last-child)': {
-      marginBottom: 8
-    }
-  }
+      marginBottom: 8,
+    },
+  },
 }));

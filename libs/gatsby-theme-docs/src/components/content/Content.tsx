@@ -1,16 +1,16 @@
-import Typography from '@material-ui/core/Typography';
-import GitHubIcon from '@material-ui/icons/GitHub';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import Typography from '@mui/material/Typography';
 import { InferProps, node, object } from 'prop-types';
 import React, { Fragment, useRef } from 'react';
 import TimeAgo from 'react-timeago';
-import useMount from 'react-use/lib/useMount';
+import { useMount } from 'react-use';
 import CollapseOnScroll from '../ui/CollapseOnScroll';
-import useGlobalStyles from '../ui/global.styles';
+import { ToolbarOffset } from '../ui/global.styles';
 import Link from '../ui/Link';
 import ContentHeader from './content-header';
 import ContentNav from './content-nav/ContentNav';
 import SectionNav from './section-nav';
-import useStyles from './styles';
+import { classes, Root } from './styles';
 
 const Content = (props: InferProps<typeof Content.propTypes>) => {
   const {
@@ -18,13 +18,11 @@ const Content = (props: InferProps<typeof Content.propTypes>) => {
     data: {
       mdx,
       site: {
-        siteMetadata: { docsLocation }
-      }
-    }
+        siteMetadata: { docsLocation },
+      },
+    },
   } = props;
   const contentRef = useRef(null);
-  const classes = useStyles();
-  const globalClasses = useGlobalStyles();
 
   useMount(() => {
     if (props.hash) {
@@ -45,9 +43,9 @@ const Content = (props: InferProps<typeof Content.propTypes>) => {
   });
 
   return (
-    <div className={classes.container}>
+    <Root className={classes.root}>
       <main className={classes.mainContent}>
-        <div className={globalClasses.toolbarOffset}></div>
+        <ToolbarOffset></ToolbarOffset>
         <ContentHeader {...mdx} />
         <div ref={contentRef}>
           <h1>{mdx.title}</h1>
@@ -63,21 +61,21 @@ const Content = (props: InferProps<typeof Content.propTypes>) => {
       </main>
       <aside className={classes.aside}>
         <CollapseOnScroll threshold={1} disableHysteresis={true}>
-          <div className={globalClasses.toolbarOffset}></div>
+          <ToolbarOffset></ToolbarOffset>
         </CollapseOnScroll>
+        {mdx.parent.relativePath && (
+          <div className={classes.edit}>
+            <Link
+              to={`${docsLocation}/${mdx.parent.relativePath}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <GitHubIcon /> Edit on GitHub
+            </Link>
+          </div>
+        )}
         {mdx.headings.length > 1 && (
           <Fragment>
-            {mdx.parent.relativePath && (
-              <div className={classes.edit}>
-                <Link
-                  to={`${docsLocation}/${mdx.parent.relativePath}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <GitHubIcon /> Edit on GitHub
-                </Link>
-              </div>
-            )}
             <h4 className={classes.asideHeading}>
               <Typography variant="overline">{mdx.fields.title}</Typography>
             </h4>
@@ -85,13 +83,13 @@ const Content = (props: InferProps<typeof Content.propTypes>) => {
           </Fragment>
         )}
       </aside>
-    </div>
+    </Root>
   );
 };
 
 Content.propTypes = {
   children: node,
-  data: object
+  data: object,
 };
 
 export default Content;

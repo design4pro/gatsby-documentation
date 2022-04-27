@@ -1,10 +1,10 @@
 import config from '@design4pro/gatsby-theme-docs-core/src/config';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import React from 'react';
 import Link from '../ui/Link';
 
-export const SidebarTreeNode = props => {
+export const SidebarTreeNode = (props) => {
   const {
     className = '',
     depth = 0,
@@ -13,11 +13,11 @@ export const SidebarTreeNode = props => {
     url,
     label,
     title,
-    items
+    items,
   } = props;
   const isCollapsed = collapsed[url];
   const Icon = isCollapsed ? KeyboardArrowRightIcon : KeyboardArrowDownIcon;
-  const collapse = e => {
+  const collapse = (e) => {
     e.preventDefault();
     setCollapsed(url);
   };
@@ -65,7 +65,7 @@ export const SidebarTreeNode = props => {
       )}
       {!isCollapsed && hasChildren ? (
         <div className={'hasChildren'}>
-          {items.map(item => (
+          {items.map((item) => (
             <SidebarTreeNode
               depth={nextDepth}
               key={item.url}

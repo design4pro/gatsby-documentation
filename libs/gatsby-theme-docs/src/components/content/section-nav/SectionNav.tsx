@@ -1,12 +1,11 @@
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 import Slugger from 'github-slugger';
 import { array, InferProps, node, object } from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import useWindowScroll from 'react-use/lib/useWindowScroll';
-import useWindowSize from 'react-use/lib/useWindowSize';
-import striptags from 'striptags';
-import useStyles from './styles';
+import { useWindowScroll, useWindowSize } from 'react-use';
+import * as striptags from 'striptags';
+import { classes, List, ListItem } from './styles';
 
 function handleHeadingClick(event) {
   // Lets track that custom click
@@ -16,19 +15,18 @@ function handleHeadingClick(event) {
     // string - required - Type of interaction (e.g. 'play')
     action: 'heading click',
     // string - optional - Useful for categorizing events (e.g. 'Spring Campaign')
-    label: event.target.innerText
+    label: event.target.innerText,
   });
 }
 
 const SectionNavItem = (props: InferProps<typeof SectionNavItem.propTypes>) => {
   const { children } = props;
-  const classes = useStyles(props);
 
-  return <div className={classes.listItem}>{children}</div>;
+  return <ListItem className={classes.listItemRoot}>{children}</ListItem>;
 };
 
 SectionNavItem.propTypes = {
-  children: node
+  children: node,
 };
 
 export const SectionNav = (props: InferProps<typeof SectionNav.propTypes>) => {
@@ -36,14 +34,15 @@ export const SectionNav = (props: InferProps<typeof SectionNav.propTypes>) => {
   const { y } = useWindowScroll();
   const { width, height } = useWindowSize();
   const [offsets, setOffsets] = useState([]);
-  const classes = useStyles();
 
   useEffect(() => {
-    const headings = contentRef.current.querySelectorAll('h1, h2');
+    const headings: HTMLElement[] = contentRef.current.querySelectorAll(
+      'h1, h2'
+    );
 
     setOffsets(
       Array.from(headings)
-        .map(heading => {
+        .map((heading) => {
           const anchor = heading.querySelector('a');
 
           if (!anchor) {
@@ -52,7 +51,7 @@ export const SectionNav = (props: InferProps<typeof SectionNav.propTypes>) => {
 
           return {
             id: heading.id,
-            offset: heading.offsetTop + anchor.offsetTop
+            offset: heading.offsetTop + anchor.offsetTop,
           };
         })
         .filter(Boolean)
@@ -76,12 +75,12 @@ export const SectionNav = (props: InferProps<typeof SectionNav.propTypes>) => {
   let lastDepth = 0;
 
   return (
-    <div className={classes.list}>
+    <List className={classes.listRoot}>
       {props.headings.map(({ value, depth }) => {
         const text = striptags(value);
         const slug = slugger.slug(text);
 
-        let newSection = lastDepth > 2 && depth === 2;
+        const newSection = lastDepth > 2 && depth === 2;
 
         lastDepth = depth;
 
@@ -98,13 +97,13 @@ export const SectionNav = (props: InferProps<typeof SectionNav.propTypes>) => {
           </SectionNavItem>
         );
       })}
-    </div>
+    </List>
   );
 };
 
 SectionNav.propTypes = {
   headings: array.isRequired,
-  contentRef: object.isRequired
+  contentRef: object.isRequired,
 };
 
 export default SectionNav;

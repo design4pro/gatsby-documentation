@@ -1,11 +1,11 @@
 import AppReducers from './app';
 
 const createReducer = handlers => (state, action) => {
-    if (!Object.prototype.hasOwnProperty.call(handlers, action.type)) {
+    if (!Object.prototype.hasOwnProperty.call(handlers, action.mode)) {
         return state;
     }
 
-    return handlers[action.type](state, action);
+    return handlers[action.mode](state, action);
 };
 
 export default createReducer({

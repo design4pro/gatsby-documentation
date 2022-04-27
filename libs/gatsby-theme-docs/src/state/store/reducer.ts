@@ -8,11 +8,11 @@ import {
 const INTERNAL_SET_ACTION_TYPE = Symbol('INTERNAL_SET_ACTION_TYPE');
 
 const createInternalSetAction = payload => ({
-    type: INTERNAL_SET_ACTION_TYPE,
+    mode: INTERNAL_SET_ACTION_TYPE,
     payload
 });
 const isInternalSetAction = action =>
-    action && action.type === INTERNAL_SET_ACTION_TYPE;
+    action && action.mode === INTERNAL_SET_ACTION_TYPE;
 const createStorageReducer = reducer => (prevState, action) =>
     isInternalSetAction(action) ? action.payload : reducer(prevState, action);
 const createUseStorageReducer = storage => (

@@ -1,28 +1,27 @@
 import { InferProps, shape, string } from 'prop-types';
 import React from 'react';
-import useStyles from './styles';
+import { classes, Root } from './styles';
 
 export const ContentHeader = (
   props: InferProps<typeof ContentHeader.propTypes>
 ) => {
   const {
-    fields: { title, description }
+    fields: { title, description },
   } = props;
-  const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
       <h1 className={classes.heading}>{title}</h1>
       {description && <h3>{description}</h3>}
-    </div>
+    </Root>
   );
 };
 
 ContentHeader.propTypes = {
   fields: shape({
     title: string.isRequired,
-    description: string
-  })
+    description: string,
+  }),
 };
 
 export default ContentHeader;

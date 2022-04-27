@@ -1,17 +1,20 @@
 import { CustomLinkContext } from '@design4pro/gatsby-theme-docs-core/src/components/mdx/CustomLink';
-import { createMuiTheme } from '@material-ui/core';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { ThemeProvider } from '@material-ui/styles';
 import { MDXProvider } from '@mdx-js/react';
+import CssBaseline from '@mui/material/CssBaseline';
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from '@mui/material/styles';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { InferProps, object } from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../../../components/layout';
 import { Seo } from '../../../components/ui';
 import { useTheme } from '../../../hooks/use-theme';
 import { getBrowserTheme } from '../../../utils/browser-theme';
-import theme from '../theme';
 import components from './mdx/components';
+import theme from './theme';
 
 export const Docs = (props: InferProps<typeof Docs.propTypes>) => {
   const {
@@ -19,9 +22,9 @@ export const Docs = (props: InferProps<typeof Docs.propTypes>) => {
       mdx,
       site: {
         pathPrefix,
-        siteMetadata: { siteUrl }
-      }
-    }
+        siteMetadata: { siteUrl },
+      },
+    },
   } = props;
 
   // SEO data
@@ -38,13 +41,18 @@ export const Docs = (props: InferProps<typeof Docs.propTypes>) => {
     themeType = getBrowserTheme();
   }
 
+  useEffect(() => {
+    document.body.setAttribute('data-theme', themeType);
+  }, [themeType]);
+
   // we generate a MUI-theme from state's theme object
-  const muiTheme = createMuiTheme({
+  let muiTheme = createTheme({
     palette: {
-      type: themeType
+      type: themeType,
     },
-    ...theme(themeType)
+    ...theme(themeType),
   });
+  muiTheme = responsiveFontSizes(muiTheme);
 
   return (
     <ThemeProvider theme={muiTheme}>
@@ -59,7 +67,7 @@ export const Docs = (props: InferProps<typeof Docs.propTypes>) => {
         <CustomLinkContext.Provider
           value={{
             pathPrefix,
-            siteUrl
+            siteUrl,
           }}
         >
           {mdx && (
@@ -75,7 +83,7 @@ export const Docs = (props: InferProps<typeof Docs.propTypes>) => {
 
 Docs.propTypes = {
   location: object,
-  data: object
+  data: object,
 };
 
 export default Docs;

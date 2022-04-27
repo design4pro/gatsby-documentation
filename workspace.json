@@ -50,7 +50,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/gatsby-starter-docs/jest.config.js",
+            "jestConfig": "apps/gatsby-starter-docs/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/apps/gatsby-starter-docs"]
@@ -134,7 +134,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/gatsby-theme-docs/jest.config.js",
+            "jestConfig": "libs/gatsby-theme-docs/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/gatsby-theme-docs"]
@@ -186,7 +186,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/gatsby-theme-docs-core/jest.config.js",
+            "jestConfig": "libs/gatsby-theme-docs-core/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/gatsby-theme-docs-core"]

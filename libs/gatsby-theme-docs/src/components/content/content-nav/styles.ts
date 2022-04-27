@@ -1,7 +1,21 @@
-import { makeStyles, Theme } from '@material-ui/styles';
+import { styled } from '@mui/material/styles';
 
-export default makeStyles((theme: Theme) => ({
-  root: {
+const PREFIX = 'ContentNav';
+export const classes = {
+  root: `${PREFIX}-root`,
+  rootOne: `${PREFIX}-rootOne`,
+  card: `${PREFIX}-card`,
+  cardPrevious: `${PREFIX}-cardPrevious`,
+  cardNext: `${PREFIX}-cardNext`,
+  cardContent: `${PREFIX}-cardContent`,
+  cardLink: `${PREFIX}-cardLink`,
+  cardContentBodyPrevious: `${PREFIX}-cardContentBodyPrevious`,
+  cardContentBodyNext: `${PREFIX}-cardContentBodyNext`,
+  cardContentBodyTitle: `${PREFIX}-cardContentBodyTitle`,
+};
+
+export const Root = styled('div')(({ theme }) => ({
+  [`&.${classes.root}`]: {
     width: 'auto',
     display: 'grid',
     gridTemplateRows: 'auto',
@@ -9,12 +23,12 @@ export default makeStyles((theme: Theme) => ({
     gridTemplateColumns: '1fr 1fr',
     margin: 0,
     padding: 0,
-    gridColumnGap: 24
+    gridColumnGap: 24,
   },
-  rootOne: {
-    gridTemplateColumns: '1fr'
+  [`& .${classes.rootOne}`]: {
+    gridTemplateColumns: '1fr',
   },
-  card: {
+  [`& .${classes.card}`]: {
     color: theme.palette.text.tertiary,
     display: 'flex',
     position: 'relative',
@@ -35,32 +49,32 @@ export default makeStyles((theme: Theme) => ({
     transition: 'border 250ms ease 0s',
     '&:hover': {
       color: theme.palette.text.quaternary,
-      borderColor: theme.palette.border.primaryHover
-    }
+      borderColor: theme.palette.border.primaryHover,
+    },
   },
-  cardPrevious: {
-    gridArea: 'previous / previous / previous / previous'
+  [`& .${classes.cardPrevious}`]: {
+    gridArea: 'previous / previous / previous / previous',
   },
-  cardNext: {
-    gridArea: 'next / next / next / next'
+  [`& .${classes.cardNext}`]: {
+    gridArea: 'next / next / next / next',
   },
-  cardContent: {
+  [`& .${classes.cardContent}`]: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
-  cardLink: {
+  [`& .${classes.cardLink}`]: {
     display: 'flex',
-    flex: 1
+    flex: 1,
   },
-  cardContentBodyPrevious: {
+  [`& .${classes.cardContentBodyPrevious}`]: {
     paddingLeft: 16,
-    textAlign: 'right'
+    textAlign: 'right',
   },
-  cardContentBodyNext: {
-    paddingRight: 16
+  [`& .${classes.cardContentBodyNext}`]: {
+    paddingRight: 16,
   },
-  cardContentBodyTitle: {
-    fontWeight: 500
-  }
+  [`& .${classes.cardContentBodyTitle}`]: {
+    fontWeight: 500,
+  },
 }));

@@ -1,6 +1,4 @@
-import { Theme } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { styled } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
 
-export default makeStyles(({ mixins }: Theme) => ({
-  toolbarOffset: mixins.toolbar
-}));
+export const ToolbarOffset = styled(Toolbar)({});

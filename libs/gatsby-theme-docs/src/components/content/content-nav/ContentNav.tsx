@@ -1,25 +1,24 @@
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Card from '@mui/material/Card';
+import CardActionArea from '@mui/material/CardActionArea';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 import { InferProps } from 'prop-types';
 import React from 'react';
 import { Link } from '../../ui';
-import useStyles from './styles';
+import { classes, Root } from './styles';
 
 export const ContentNav = (props: InferProps<typeof ContentNav.propTypes>) => {
   const {
-    pageContext: { previous, next }
+    pageContext: { previous, next },
   } = props;
-  const classes = useStyles();
 
-  const isPrevious = () => previous && previous.node.fields.slug !== '';
-  const isNext = () => next && next.node.fields.slug !== '';
+  const isPrevious = () => previous && previous.fields.slug !== '';
+  const isNext = () => next && next.fields.slug !== '';
 
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
       {isPrevious() ? (
         <Card
           className={`${classes.card} ${classes.cardPrevious}`}
@@ -27,7 +26,7 @@ export const ContentNav = (props: InferProps<typeof ContentNav.propTypes>) => {
         >
           <Link
             className={classes.cardLink}
-            to={previous.node.fields.slug}
+            to={previous.fields.slug}
             color="textSecondary"
             underline="none"
           >
@@ -50,7 +49,7 @@ export const ContentNav = (props: InferProps<typeof ContentNav.propTypes>) => {
                       color="textPrimary"
                       component="p"
                     >
-                      {previous.node.fields.title}
+                      {previous.fields.title}
                     </Typography>
                   </div>
                 </div>
@@ -63,7 +62,7 @@ export const ContentNav = (props: InferProps<typeof ContentNav.propTypes>) => {
         <Card className={`${classes.card} ${classes.cardNext}`} elevation={0}>
           <Link
             className={classes.cardLink}
-            to={next.node.fields.slug}
+            to={next.fields.slug}
             color="textSecondary"
             underline="none"
           >
@@ -85,7 +84,7 @@ export const ContentNav = (props: InferProps<typeof ContentNav.propTypes>) => {
                       color="textPrimary"
                       component="p"
                     >
-                      {next.node.fields.title}
+                      {next.fields.title}
                     </Typography>
                   </div>
                   <ArrowForwardIcon />
@@ -95,7 +94,7 @@ export const ContentNav = (props: InferProps<typeof ContentNav.propTypes>) => {
           </Link>
         </Card>
       ) : null}
-    </div>
+    </Root>
   );
 };
 

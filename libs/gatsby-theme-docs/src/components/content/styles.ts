@@ -1,27 +1,38 @@
-import { makeStyles, Theme } from '@material-ui/styles';
+import { styled } from '@mui/material/styles';
 
-export default makeStyles((theme: Theme) => ({
-  container: {
+const PREFIX = 'Content';
+export const classes = {
+  root: `${PREFIX}-root`,
+  mainContent: `${PREFIX}-mainContent`,
+  contentFooter: `${PREFIX}-contentFooter`,
+  contentFooterData: `${PREFIX}-contentFooterData`,
+  aside: `${PREFIX}-aside`,
+  edit: `${PREFIX}-edit`,
+  asideHeading: `${PREFIX}-asideHeading`,
+};
+
+export const Root = styled('div')(({ theme }) => ({
+  [`&.${classes.root}`]: {
     display: 'flex',
     alignItems: 'flex-start',
-    maxWidth: 1200
+    maxWidth: 1200,
   },
-  mainContent: {
+  [`& .${classes.mainContent}`]: {
     flexGrow: 1,
     width: 0,
-    marginRight: 24
+    marginRight: 24,
   },
-  contentFooter: {
-    paddingTop: 64
+  [`& .${classes.contentFooter}`]: {
+    paddingTop: 64,
   },
-  contentFooterData: {
+  [`& .${classes.contentFooterData}`]: {
     borderTop: `2px solid ${theme.palette.border.primary}`,
     paddingTop: 24,
     marginTop: 24,
     fontSize: 10,
-    color: theme.palette.text.tertiary
+    color: theme.palette.text.tertiary,
   },
-  aside: {
+  [`& .${classes.aside}`]: {
     display: 'flex',
     flexDirection: 'column',
     flexShrink: 0,
@@ -32,10 +43,10 @@ export default makeStyles((theme: Theme) => ({
     top: 0,
     // top: headerheight,
     [theme.breakpoints.down('md')]: {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
-  edit: {
+  [`& .${classes.edit}`]: {
     marginTop: 24,
     marginLeft: 0,
     overflow: 'auto',
@@ -46,7 +57,7 @@ export default makeStyles((theme: Theme) => ({
       top: 0,
       left: 0,
       height: '100%',
-      borderLeft: `1px solid ${theme.palette.divider}`
+      borderLeft: `1px solid ${theme.palette.divider}`,
     },
     '& a': {
       color: '#242A31',
@@ -62,19 +73,19 @@ export default makeStyles((theme: Theme) => ({
       '& > svg': {
         marginRight: 8,
         fontSize: 18,
-        color: theme.palette.text.tertiary
+        color: theme.palette.text.tertiary,
       },
       '&:hover': {
         backgroundColor: theme.palette.background.primary,
         color: theme.palette.text.primary,
         textDecoration: 'none',
         '& > svg': {
-          color: theme.palette.text.primary
-        }
-      }
-    }
+          color: theme.palette.text.primary,
+        },
+      },
+    },
   },
-  asideHeading: {
+  [`& .${classes.asideHeading}`]: {
     paddingRight: '1rem',
     '& > *': {
       display: 'block',
@@ -84,7 +95,7 @@ export default makeStyles((theme: Theme) => ({
       fontWeight: 700,
       fontSize: 10,
       letterSpacing: '1.2px',
-      color: theme.palette.text.tertiary
-    }
-  }
+      color: theme.palette.text.tertiary,
+    },
+  },
 }));

@@ -1,36 +1,19 @@
+const { value } = require('@commitlint/config-angular-type-enum');
+const {
+  utils: { getProjects },
+} = require('@commitlint/config-nx-scopes');
+
 module.exports = {
-    extends: ['@commitlint/config-angular'],
-    rules: {
-      'type-enum': [
+  extends: ['@commitlint/config-angular'],
+  rules: {
+    'body-leading-blank': [0, 'never'],
+    'scope-empty': [0],
+    'scope-enum': (ctx) =>
+      getProjects(ctx).then((packages) => [
         2,
         'always',
-        [
-          // Minor
-          'feat',
-          // Patch
-          'build',
-          'docs',
-          'fix',
-          'perf',
-          'refactor',
-          // None
-          'chore',
-          'ci',
-          'revert',
-          'test',
-        ],
-      ],
-      'scope-empty': [0],
-      'scope-enum': [
-        2,
-        'always',
-        // prettier-ignore
-        [
-          'gatsby-starter-docs',
-          'gatsby-theme-docs',
-          'gatsby-theme-docs-core'
-        ],
-      ],
-    },
-    ignores: [message => message.toLowerCase().startsWith('wip')],
-  };
+        [...packages, ...value(), 'package'],
+      ]),
+  },
+  ignores: [(message) => message.toLowerCase().startsWith('wip')],
+};
